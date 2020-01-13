@@ -8,12 +8,14 @@ export default class CreateExercise extends Component {
         super(props)
         this.state = {
              username: '',
+             title: '',
              description: '',
              duration: 0,
              date: new Date(),
              users: []
         }
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
@@ -35,6 +37,12 @@ export default class CreateExercise extends Component {
     onChangeUsername(e) {
         this.setState({
             username: e.target.value
+        })
+    }
+
+    onChangeTitle(e) {
+        this.setState({
+            title: e.target.value
         })
     }
 
@@ -61,6 +69,7 @@ export default class CreateExercise extends Component {
 
         const exercise = {
             username: this.state.username,
+            title: this.state.title,
             description: this.state.description,
             duration: this.state.duration,
             date: this.state.date
@@ -100,8 +109,18 @@ export default class CreateExercise extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Description:</label>
+                        <label>Title:</label>
                         <input
+                            type="text"
+                            required
+                            className="form-control"
+                            value={ this.state.title }
+                            onChange={ this.onChangeTitle }
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Description:</label>
+                        <textarea
                             type="text"
                             required
                             className="form-control"

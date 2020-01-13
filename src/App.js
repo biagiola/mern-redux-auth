@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import ExersiceList from './components/exercises-list';
 import EditExercise from './components/edit-exercise';
+import DetailsExercise from './components/details-exercise';
 import CreateExercise from './components/create-exercise';
 import CreateUser from './components/create-user';
 
@@ -18,6 +19,7 @@ function App() {
             <Switch>
                 <Route exact path="/" component={ ExersiceList } />
                 <Route path="/edit/:id" component={ EditExercise } />
+                <Route path="/details/:id" component={ DetailsExercise } />
                 <Route path="/create" component={ CreateExercise } />
                 <Route path="/user" component={ CreateUser } />
             </Switch>
