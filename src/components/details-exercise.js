@@ -67,7 +67,7 @@ export default class EditExercise extends Component {
         <p>{ this.state.description }</p>
         <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
         <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-        <Link to={"/"} className="btn btn-primary" onClick={ () =>{ this.deleteExercise(this.props.match.params.id)} }>delete</Link> 
+        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteExercise(this.props.match.params.id)} }>delete</Link> 
         <Link to={"/"} className="btn btn-primary">back</Link>
     </div>
     )
