@@ -20,7 +20,6 @@ export default class Navbar extends Component {
                         </li>
                     </ul>
                 </div><br/>
-                <h4 className="navbar-item text-light"></h4>
             </nav>
         );
     }
