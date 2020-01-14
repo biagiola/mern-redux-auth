@@ -1,13 +1,20 @@
 html {
     background-color: #080812;
 }
-.App {
-  text-align: center;
-  background-color: #080812;
-}
 
 main {
   padding-top: 1.5rem;
+}
+
+small {
+  display: block;
+  text-align: left;
+  padding-left: 24px;
+}
+
+.App {
+  text-align: center;
+  background-color: #080812;
 }
 
 .btn {
