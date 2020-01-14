@@ -7,14 +7,14 @@ export default class EditExercise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      lenguage: '',
       title: '',
       description: '',
       date: new Date(),
-      users: []
+      lenguages: []
     }
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeLenguage = this.onChangeLenguage.bind(this);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
@@ -27,7 +27,7 @@ export default class EditExercise extends Component {
     axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username,
+          lenguage: response.data.lenguage,
           title: response.data.title,
           description: response.data.description,
           duration: response.data.duration,
@@ -38,11 +38,11 @@ export default class EditExercise extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:5000/users/')
+    axios.get('http://localhost:5000/lenguages/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.username),
+            lenguages: response.data.map(lenguage => lenguage.lenguage),
           })
         }
       })
@@ -51,9 +51,9 @@ export default class EditExercise extends Component {
       })
   }
 
-  onChangeUsername(e) {
+  onChangeLenguage(e) {
     this.setState({
-      username: e.target.value
+      lenguage: e.target.value
     })
   }
 
@@ -85,7 +85,7 @@ export default class EditExercise extends Component {
     e.preventDefault();
 
     const exercise = {
-      username: this.state.username,
+      lenguage: this.state.lenguage,
       title: this.state.title,
       description: this.state.description,
       duration: this.state.duration,
