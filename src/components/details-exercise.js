@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export default class EditExercise extends Component {
-  constructor(props) {
+    constructor(props) {
     super(props);
     this.state = {
       username: '',
@@ -15,8 +15,8 @@ export default class EditExercise extends Component {
       exercises: [],
       id: ''
     }
-    this.deleteExercise = this.deleteExercise.bind(this);
-  }
+        this.deleteExercise = this.deleteExercise.bind(this);
+    }
 
     componentDidMount() {
 
@@ -57,16 +57,17 @@ export default class EditExercise extends Component {
             .then( res => console.log( res.data ) );
             this.setState({
                 exercises: this.state.exercises.filter( el => el._id !== id )  
-            })
+            }).then(window.location = '/')
     }
 
   render(props) {
     return (
     <div>
-        <h6>Welcome to details {this.state.username}</h6>
         <h6>{ this.state.title }</h6>
         <p>{ this.state.description }</p>
-        <Link to={ '/edit/' + this.props.match.params.id }>edit</Link> | <Link to={"/"} onClick={ () =>{ this.deleteExercise(this.props.match.params.id)} }>delete</Link> | <Link to={"/"}>back</Link>
+        <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
+        <Link to={"/"} className="btn btn-primary" onClick={ () =>{ this.deleteExercise(this.props.match.params.id)} }>delete</Link> 
+        <Link to={"/"} className="btn btn-primary">back</Link>
     </div>
     )
   }

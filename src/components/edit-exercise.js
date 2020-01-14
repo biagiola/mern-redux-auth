@@ -10,7 +10,6 @@ export default class EditExercise extends Component {
       username: '',
       title: '',
       description: '',
-      duration: 0,
       date: new Date(),
       users: []
     }
@@ -104,9 +103,7 @@ export default class EditExercise extends Component {
   render() {
     return (
     <div>
-      <h3>Edit Exercise Log</h3>
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group"> 
+        {/*<div className="form-group"> 
           <label>Username: </label>
           <select ref="userInput"
               required
@@ -122,50 +119,46 @@ export default class EditExercise extends Component {
                 })
               }
           </select>
-        </div>
-        <div className="form-group">
-            <label>Title:</label>
-            <input
+        </div>*/}
+        <h3>Edit Exercise Log</h3>
+        <form onSubmit={this.onSubmit} className="container">
+            <div className="form-group">
+                <label>Title:</label>
+                <input
+                    type="text"
+                    required
+                    className="form-control text-dark"
+                    value={this.state.title}
+                    onChange={this.onChangeTitle}
+                />
+            </div>
+            <div className="form-group"> 
+            <label>Description: </label>
+            <textarea  
                 type="text"
                 required
-                className="form-control"
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-            />
-        </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <textarea  
-              type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-        </div>
-        <div className="form-group">
-          <label>Duration (in minutes): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-        </div>
-        <div className="form-group">
-          <label>Date: </label>
-          <div>
-            <DatePicker
-              selected={this.state.date}
-              onChange={this.onChangeDate}
-            />
-          </div>
-        </div>
+                className="form-control text-dark"
+                rows="15"
+                value={this.state.description}
+                onChange={this.onChangeDescription}
+                />
+            </div>
+            <div className="form-group">
+            <label>Date: </label>
+            <div>
+                <DatePicker
+                selected={this.state.date}
+                onChange={this.onChangeDate}
+                className="text-dark"
+                />
+            </div>
+            </div>
 
-        <div className="form-group">
-          <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
-        </div>
-      </form>
+            <div className="form-group">
+            <input type="submit" value="Edit Exercise Log" className="btn btn-primary bg-primary text-light" />
+            </div>
+
+        </form>
     </div>
     )
   }

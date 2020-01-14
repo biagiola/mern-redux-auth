@@ -15,7 +15,7 @@ export default class ExercisesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-             exercises: []
+            exercises: []
         };
         
     }
@@ -38,13 +38,9 @@ export default class ExercisesList extends Component {
     
     render() {
         return (
-            <div>
+            <div className="container">
+                <h6>Articles</h6>
                 <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Title</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         { this.exerciseList() }
                     </tbody>

@@ -17,7 +17,6 @@ export default class CreateExercise extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -49,12 +48,6 @@ export default class CreateExercise extends Component {
     onChangeDescription(e) {
         this.setState({
             description: e.target.value
-        })
-    }
-
-    onChangeDuration(e) {
-        this.setState({
-            duration: e.target.value
         })
     }
 
@@ -124,17 +117,9 @@ export default class CreateExercise extends Component {
                             type="text"
                             required
                             className="form-control"
+                            rows="17"
                             value={ this.state.description }
                             onChange={ this.onChangeDescription }
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Duration (in minutes):</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={ this.state.duration }
-                            onChange={ this.onChangeDuration }
                         />
                     </div>
                     <div className="form-group">
