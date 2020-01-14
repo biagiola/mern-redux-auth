@@ -57,7 +57,7 @@ export default class EditExercise extends Component {
             .then( res => console.log( res.data ) );
             this.setState({
                 exercises: this.state.exercises.filter( el => el._id !== id )  
-            }).then(window.location = '/')
+            })
     }
 
   render(props) {
@@ -65,6 +65,7 @@ export default class EditExercise extends Component {
     <div>
         <h6>{ this.state.title }</h6>
         <p>{ this.state.description }</p>
+        <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
         <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
         <Link to={"/"} className="btn btn-primary" onClick={ () =>{ this.deleteExercise(this.props.match.params.id)} }>delete</Link> 
         <Link to={"/"} className="btn btn-primary">back</Link>

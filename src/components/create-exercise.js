@@ -7,14 +7,14 @@ export default class CreateExercise extends Component {
     constructor(props) {
         super(props)
         this.state = {
-             username: '',
+             lenguage: '',
              title: '',
              description: '',
              duration: 0,
              date: new Date(),
-             users: []
+             lenguages: []
         }
-        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeLenguage = this.onChangeLenguage.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
@@ -22,20 +22,20 @@ export default class CreateExercise extends Component {
     }
     
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
+        axios.get('http://localhost:5000/lenguages/')
             .then( response => {
                 if ( response.data.length > 0 ) {
                     this.setState({
-                        users: response.data.map( user => user.username ),
-                        username: response.data[0].username
+                        lenguages: response.data.map( lenguages => lenguages.lenguage ),
+                        lenguage: response.data[0].lenguage
                     })
                 }
         })
     }
 
-    onChangeUsername(e) {
+    onChangeLenguage(e) {
         this.setState({
-            username: e.target.value
+            lenguage: e.target.value
         })
     }
 
@@ -61,7 +61,7 @@ export default class CreateExercise extends Component {
         e.preventDefault();
 
         const exercise = {
-            username: this.state.username,
+            lenguage: this.state.lenguage,
             title: this.state.title,
             description: this.state.description,
             duration: this.state.duration,
@@ -79,23 +79,23 @@ export default class CreateExercise extends Component {
     render() {
         return (
             <div>
-                <h3>Create New Exercise</h3>
+                <h3>Create New Article</h3>
                 <form onSubmit={ this.onSubmit } className="container">
                     <div className='form-group'>
-                        <label>Username: </label>
+                        <label>Lenguage: </label>
                         <select
                             ref="userInput"
                             required
                             className="form-control"                        
-                            value={ this.state.username }
-                            onChange={ this.onChangeUsername }
+                            value={ this.state.lenguage }
+                            onChange={ this.onChangeLenguage }
                         >{
-                            this.state.users.map( function(user) {
+                            this.state.lenguages.map( function(lenguage) {
                                 return (<option
-                                        key={ user }
-                                        value={ user }
+                                        key={ lenguage }
+                                        value={ lenguage }
                                     >
-                                    { user }
+                                    { lenguage }
                                 </option>);
                             })
                         }
