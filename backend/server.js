@@ -18,9 +18,9 @@ connection.once('open', () => {
 })
 
 const exercisesRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
+const lenguageRouter = require('./routes/lenguages');
 app.use('/exercises', exercisesRouter);
-app.use('/users', usersRouter);
+app.use('/lenguages', lenguageRouter);
 
 // express is listening the port
 app.listen(port, () => {
