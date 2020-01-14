@@ -39,7 +39,7 @@ export default class EditExercise extends Component {
             console.log(error);
         })
         // get all users.
-        axios.get('http://localhost:5000/users/')
+        axios.get('http://localhost:5000/lenguages/')
         .then(response => {
             if (response.data.length > 0) {
             this.setState({
