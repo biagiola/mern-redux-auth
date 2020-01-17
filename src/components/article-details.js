@@ -12,9 +12,11 @@ export default class ArticleDetails extends Component {
       date: new Date(),
       lenguages: [],
       articles: [],
-      id: ''
+      id: '',
+      fragmentedArticle: []
     }
         this.deleteArticle = this.deleteArticle.bind(this);
+        this.fragmentedArticle = this.fragmentedArticle.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +26,7 @@ export default class ArticleDetails extends Component {
         })
 
         // get individual exercise.
-        axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
+        axios.get('http://localhost:5000/articles/'+this.props.match.params.id)
         .then(response => {
             this.setState({
                 title: response.data.title,
@@ -36,7 +38,8 @@ export default class ArticleDetails extends Component {
         .catch(function (error) {
             console.log(error);
         })
-        // get all users.
+
+        // get all lenguages.
         axios.get('http://localhost:5000/lenguages/')
         .then(response => {
             if (response.data.length > 0) {
@@ -45,10 +48,13 @@ export default class ArticleDetails extends Component {
             })
             }
         }).catch( error => console.log(error) )
+
+        //fragmented article
+        
     }
 
     deleteArticle( id ) {
-        axios.delete( 'http://localhost:5000/exercises/' + id )
+        axios.delete( 'http://localhost:5000/articles/' + id )
         .then( res => console.log( res.data ) );
             this.setState({
                 articles: this.state.articles.filter( el => el._id !== id )  
@@ -56,14 +62,48 @@ export default class ArticleDetails extends Component {
         )
     }
 
+    fragmentedArticle = () => {
+        console.log('hola');
+        let length = this.state.description.length;
+        
+        let word = [];
+        let counter = 0;
+        let p1, p2 = 0;
+        
+        for (let x = 0; x <= length; x++) {
+
+            word[x] = this.state.description[x];
+
+            if( this.state.description[x] === ' ' || this.state.description[x] === "\n" ){
+                
+                p2 = x;
+                
+                this.state.fragmentedArticle[counter] = word.join('').substr(p1,p2);
+
+                console.log('frag',this.state.fragmentedArticle);
+                console.log('word',word);
+                console.log('x',x);
+                console.log('counter',counter);
+                
+                p1 = p2
+                p2 = 0;
+
+                counter++;
+                
+            }
+
+        } 
+    }
+
   render(props) {
     return (
     <div>
         <h6>{ this.state.title }</h6>
+        <p onClick={ this.fragmentedArticle }>Play</p>
         <p>{ this.state.description }</p>
         <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
         <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id)} }>delete</Link> 
+        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
         <Link to={"/"} className="btn btn-primary">back</Link>
     </div>
     )
