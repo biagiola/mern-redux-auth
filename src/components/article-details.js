@@ -12,8 +12,10 @@ export default class ArticleDetails extends Component {
       date: new Date(),
       lenguages: [],
       articles: [],
+      fragmented: [],
+      showSpans: false,
+      counterSpaces: 0,
       id: '',
-      fragmentedArticle: []
     }
         this.deleteArticle = this.deleteArticle.bind(this);
         this.fragmentedArticle = this.fragmentedArticle.bind(this);
@@ -63,49 +65,78 @@ export default class ArticleDetails extends Component {
     }
 
     fragmentedArticle = () => {
-        console.log('hola');
+        
         let length = this.state.description.length;
         
         let word = [];
+        let fragmentedArticle = [];
         let counter = 0;
         let p1, p2 = 0;
-        
+    
         for (let x = 0; x <= length; x++) {
-
             word[x] = this.state.description[x];
-
             if( this.state.description[x] === ' ' || this.state.description[x] === "\n" ){
-                
                 p2 = x;
-                
-                this.state.fragmentedArticle[counter] = word.join('').substr(p1,p2);
-
-                console.log('frag',this.state.fragmentedArticle);
-                console.log('word',word);
-                console.log('x',x);
-                console.log('counter',counter);
-                
+                fragmentedArticle[counter] = word.join('').substr(p1,p2);
                 p1 = p2
                 p2 = 0;
-
-                counter++;
-                
+                counter++;   
             }
-
         } 
+        this.setState({
+            fragmented: fragmentedArticle,
+            counterSpaces: counter,
+            showSpans: !this.state.showSpans
+        })
+        
     }
 
-  render(props) {
-    return (
-    <div>
-        <h6>{ this.state.title }</h6>
-        <p onClick={ this.fragmentedArticle }>Play</p>
-        <p>{ this.state.description }</p>
-        <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
-        <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
-        <Link to={"/"} className="btn btn-primary">back</Link>
-    </div>
-    )
-  }
+    printSpans = () => {
+        console.log(this.state.counterSpaces);
+        
+        setTimeout(() => {
+            return<div>hola</div>
+            
+        }, 1500)
+
+        setTimeout(() => {
+            {this.state.fragmented.map( item => {
+            return (
+                <span key={ Math.random() }>
+                    w{ item }
+                </span>
+            )
+            })}  
+                    
+            }, 1300)
+    }
+
+    render(props) {
+
+        const displaySpan = this.state.showSpans ? 'inline-block' : 'none';
+
+        const tag = this.state.fragmented.map( item => {
+            
+            return (
+                <span key={ Math.random() }>
+                    {item}
+                </span>
+            )
+        })
+
+        return (
+            <div>
+                <h6>{ this.state.title }</h6>
+                <p onClick={ this.fragmentedArticle }>Play</p>
+                <div onClick={ this.printSpans } style={{ display:displaySpan }} >
+                    {tag}
+                </div>
+
+                <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
+                <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
+                <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
+                <Link to={"/"} className="btn btn-primary">back</Link>
+            </div>
+        )
+    }
 }   
