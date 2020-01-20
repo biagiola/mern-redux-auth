@@ -19,6 +19,7 @@ export default class ArticleDetails extends Component {
     }
         this.deleteArticle = this.deleteArticle.bind(this);
         this.fragmentedArticle = this.fragmentedArticle.bind(this);
+        this.paragraph = React.createRef();
     }
 
     componentDidMount() {
@@ -50,9 +51,6 @@ export default class ArticleDetails extends Component {
             })
             }
         }).catch( error => console.log(error) )
-
-        //fragmented article
-        
     }
 
     deleteArticle( id ) {
@@ -91,32 +89,30 @@ export default class ArticleDetails extends Component {
         
     }
 
-    printSpans = () => {
-        console.log(this.state.counterSpaces);
+    componentDidUpdate(prevProps) {
         
-        setTimeout(() => {
-            return<div>hola</div>
+        if (this.state.showSpans !== prevProps.showSpans) {
             
-        }, 1500)
+            console.log('holi', this.paragraph.current.children[0]);
+            let length = this.paragraph.current.children.length;
 
-        setTimeout(() => {
-            {this.state.fragmented.map( item => {
-            return (
-                <span key={ Math.random() }>
-                    w{ item }
-                </span>
-            )
-            })}  
-                    
-            }, 1300)
+            for (let x = 0; x < length; x++) {
+
+                setTimeout(() => {
+                    console.log(x);
+                    this.paragraph.current.children[x].style.color = "blue"
+                }, 1000);
+                
+            }
+
+        }
     }
 
     render(props) {
 
         const displaySpan = this.state.showSpans ? 'inline-block' : 'none';
-
+        
         const tag = this.state.fragmented.map( item => {
-            
             return (
                 <span key={ Math.random() }>
                     {item}
@@ -127,8 +123,9 @@ export default class ArticleDetails extends Component {
         return (
             <div>
                 <h6>{ this.state.title }</h6>
-                <p onClick={ this.fragmentedArticle }>Play</p>
-                <div onClick={ this.printSpans } style={{ display:displaySpan }} >
+                <p onClick={ this.fragmentedArticle }>Show</p>
+                <p onClick={ this.printSpans }>Play</p>
+                <div onClick={ this.printSpans } style={{ display:displaySpan }} ref={ this.paragraph }>
                     {tag}
                 </div>
 
