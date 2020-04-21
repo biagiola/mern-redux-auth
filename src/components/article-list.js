@@ -21,7 +21,7 @@ export default class ArticlesList extends Component {
     }
     
     componentDidMount() {
-        axios.get( 'http://localhost:5000/exercises/' )
+        axios.get( 'http://localhost:5000/articles/' )
         .then( response => {
             this.setState({ articles: response.data })
         })

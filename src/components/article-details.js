@@ -55,15 +55,14 @@ export default class ArticleDetails extends Component {
 
     deleteArticle( id ) {
         axios.delete( 'http://localhost:5000/articles/' + id )
-        .then( res => console.log( res.data ) );
-            this.setState({
-                articles: this.state.articles.filter( el => el._id !== id )  
-            }
-        )
+            .catch( res => console.log( res.data ) );
+        
+        this.setState({
+            articles: this.state.articles.filter( el => el._id !== id )  
+        })
     }
 
     fragmentedArticle = () => {
-        
         let length = this.state.description.length;
         
         let word = [];
@@ -86,11 +85,9 @@ export default class ArticleDetails extends Component {
             counterSpaces: counter,
             showSpans: !this.state.showSpans
         })
-        
     }
 
     componentDidUpdate(prevProps) {
-        
         if (this.state.showSpans !== prevProps.showSpans) {
             
             console.log('holi', this.paragraph.current.children[0]);
@@ -109,7 +106,6 @@ export default class ArticleDetails extends Component {
     }
 
     render(props) {
-
         const displaySpan = this.state.showSpans ? 'inline-block' : 'none';
         
         const tag = this.state.fragmented.map( item => {

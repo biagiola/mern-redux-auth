@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -72,7 +71,7 @@ export default class CreateArticle extends Component {
 
         console.log(article);
 
-        axios.post('http://localhost:5000/exercises/add', article)
+        axios.post('http://localhost:5000/articles/add', article)
         .then( res => console.log( res.data ) );
 
         window.location = '/';
