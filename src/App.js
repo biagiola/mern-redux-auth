@@ -23,7 +23,10 @@ function App() {
                     <Route path="/create" component={ CreateArticle } />
                     <Route path="/edit/:id" component={ EditArticle } />
                     <Route path="/deleted" component={ DeleteArticle } />
-                    <Route path="/user" component={ CreateLenguage } />
+                    <Route path="/lenguage" component={ CreateLenguage } />
+                    {/*
+                    <Route exact path="/register" component={  } />
+                    <Route exact path="/login" component={  } />*/}
                 </Switch>
             </main>
         </BrowserRouter>

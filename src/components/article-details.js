@@ -29,7 +29,7 @@ export default class ArticleDetails extends Component {
         })
 
         // get individual exercise.
-        axios.get('http://localhost:5000/articles/'+this.props.match.params.id)
+        axios.get('http://localhost:5000/articles/' + this.props.match.params.id)
         .then(response => {
             this.setState({
                 title: response.data.title,
