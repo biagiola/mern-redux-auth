@@ -10,6 +10,7 @@ import CreateArticle from './components/create-article';
 import EditArticle from './components/edit-article';
 import DeleteArticle from './components/delete-article';
 import CreateLenguage from './components/create-lenguage';
+import NewUser from './components/new-user';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/edit/:id" component={ EditArticle } />
                     <Route path="/deleted" component={ DeleteArticle } />
                     <Route path="/lenguage" component={ CreateLenguage } />
+                    <Route path="/signup" component={ NewUser } />
                     {/*
                     <Route exact path="/register" component={  } />
                     <Route exact path="/login" component={  } />*/}
