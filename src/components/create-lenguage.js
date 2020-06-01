@@ -5,10 +5,22 @@ export default class CreateUsers extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            lenguage: ''
+            lenguage: '',
+            lenguages: []
         }
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:5000/lenguages/')
+            .then( response => {
+                if( response.data.length > 0 ) {
+                    this.setState({
+                        lenguages: response.data.map( lenguages => lenguages.lenguage)
+                    })
+                }
+            })
     }
     
     onChangeLenguage(e) {
@@ -50,6 +62,14 @@ export default class CreateUsers extends Component {
                         <input type="submit" value="Add" className="btn btn-primary"/>
                     </div>
                 </form>
+                <h3>Available languages</h3>
+                {
+                    this.state.lenguages.map( function(lenguage) {
+                        return (
+                        <h5 key={lenguage}>{ lenguage }</h5>
+                        )
+                    })
+                }
             </div>
         )
     }

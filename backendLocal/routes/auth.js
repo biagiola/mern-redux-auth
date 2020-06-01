@@ -18,6 +18,7 @@ router.route('/register').post(async (req, res) => {
 
     try{
         const savedUser = await user.save();
+        console.log('auth.js /register', savedUser);
         res.send(savedUser);
     } catch(err) {
         res.status(400).send(err)
