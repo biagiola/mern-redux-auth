@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { registerValidation } from '../validation';
+import { browserHistory } from 'react-router';
 
 export default class newUser extends Component {
     constructor(props){
@@ -7,7 +9,9 @@ export default class newUser extends Component {
         this.state = {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            location: '*',
+            registerMessage: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.changeName = this.changeName.bind(this);
@@ -39,10 +43,18 @@ export default class newUser extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        axios.post('http://localhost:5000/auth/register', newUser)
-            .then( res => console.log( res.data ));
 
-        window.location = '/';
+        const { error } = registerValidation(newUser);
+        this.setState({
+            registerMessage: error
+        })
+        axios.post('http://localhost:5000/auth/register', newUser)
+            .then(function (response) {
+                console.log(response);
+                browserHistory.push('/hola')
+            })
+
+        
     }
 
     render() {
