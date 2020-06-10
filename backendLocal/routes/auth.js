@@ -12,9 +12,6 @@ router.route('/').get( (req, res) => {
 
 router.route('/register').post(async (req, res) => {
 
-    
-
-    //const validation = Joi.validate(req.body, schema);
     const { error } = registerValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -22,8 +19,8 @@ router.route('/register').post(async (req, res) => {
     const emailExist =  await User.findOne({ email: req.body.email });
     if(emailExist) {
         console.log('auth if, Email already exists');
-        res.set('Access-Control-Allow-Origin', '*');
-        return res.status(400).send('Email already exists');
+        //res.set('Access-Control-Allow-Origin', '*');
+        return res.status(403).send('Email already exists');
     }
 
     const user = new User({
@@ -38,7 +35,7 @@ router.route('/register').post(async (req, res) => {
         res.send(savedUser);
     }catch( err ) {
         console.log('auth.js ERROR');
-        res.status(400).send(err);
+        res.status(403).send(err);
     }
 });
 
