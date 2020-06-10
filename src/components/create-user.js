@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { registerValidation } from '../validation';
-import { browserHistory } from 'react-router';
+
 
 export default class newUser extends Component {
     constructor(props){
@@ -44,17 +43,17 @@ export default class newUser extends Component {
             password: this.state.password
         }
 
-        const { error } = registerValidation(newUser);
+        /*const { error } = registerValidation(newUser);
         this.setState({
             registerMessage: error
-        })
+        })*/
         axios.post('http://localhost:5000/auth/register', newUser)
-            .then(function (response) {
-                console.log(response);
-                browserHistory.push('/hola')
-            })
-
-        
+            .then( response => {
+                console.log('create-user, then response.data',response )})
+                //windows.location = '/';
+            .catch( response => {
+                console.log('create-user, catch response.data',response )}
+            )
     }
 
     render() {

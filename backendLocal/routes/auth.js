@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+const { registerValidation, loginValidation } = require('../../src/validation');
 const Joi = require('@hapi/joi');
 
 router.route('/').get( (req, res) => {
@@ -10,6 +11,21 @@ router.route('/').get( (req, res) => {
 });
 
 router.route('/register').post(async (req, res) => {
+
+    
+
+    //const validation = Joi.validate(req.body, schema);
+    const { error } = registerValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    //Cheking if the user is already in the data base
+    const emailExist =  await User.findOne({ email: req.body.email });
+    if(emailExist) {
+        console.log('auth if, Email already exists');
+        res.set('Access-Control-Allow-Origin', '*');
+        return res.status(400).send('Email already exists');
+    }
+
     const user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -20,8 +36,9 @@ router.route('/register').post(async (req, res) => {
         const savedUser = await user.save();
         console.log('auth.js /register', savedUser);
         res.send(savedUser);
-    } catch(err) {
-        res.status(400).send(err)
+    }catch( err ) {
+        console.log('auth.js ERROR');
+        res.status(400).send(err);
     }
 });
 
