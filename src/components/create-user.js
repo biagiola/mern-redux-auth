@@ -49,9 +49,10 @@ export default class newUser extends Component {
         })*/
         axios.post('http://localhost:5000/auth/register', newUser)
             .then( res => {
-                console.log('create-user, then response.data',res )})
+                console.log('create-user, then response.data', res )})
             .catch( error => {
-                console.log('create-user, catch response.data',error.response.data )}
+                console.log(error);
+                alert(error.response.data )}
             )
     }
 

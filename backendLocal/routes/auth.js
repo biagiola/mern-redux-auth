@@ -12,14 +12,17 @@ router.route('/').get( (req, res) => {
 
 router.route('/register').post(async (req, res) => {
 
+    //Validate the email
     const { error } = registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log('auth.js in-error ', error.details[0].message );
+        return res.status(400).send(error.details[0].message);
+    }
 
     //Cheking if the user is already in the data base
     const emailExist =  await User.findOne({ email: req.body.email });
     if(emailExist) {
         console.log('auth if, Email already exists');
-        //res.set('Access-Control-Allow-Origin', '*');
         return res.status(403).send('Email already exists');
     }
 
@@ -35,7 +38,7 @@ router.route('/register').post(async (req, res) => {
         res.send(savedUser);
     }catch( err ) {
         console.log('auth.js ERROR');
-        res.status(403).send(err);
+        res.status(404).send(err);
     }
 });
 
