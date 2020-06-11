@@ -58,26 +58,30 @@ export default class newUser extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={ this.onSubmit }>
-                    <label>Enter your name</label>
-                    <input 
+            <div className="container mt-5"> 
+                <form onSubmit={ this.onSubmit } className="form-group">
+                    <input
+                        id="fname" 
                         type="text"
                         className="form-control"
+                        placeholder="enter your name..."
                         value={ this.state.name } 
-                        onChange={ this.changeName } />
+                        onChange={ this.changeName } 
+                        />
                         <br/>
-                    <label>Enter your email</label>
                     <input 
+                        id="femail"
                         type="text"
                         className="form-control"
+                        placeholder="enter your email..."
                         value={ this.state.email } 
                         onChange={ this.changeEmail } />
                         <br/>
-                    <label>Enter your password</label>
                     <input 
+                        id="fpwd"
                         type="text" 
                         className="form-control"
+                        placeholder="enter your password..."
                         value={ this.state.password }
                         onChange={ this.changePassword } />
                         <br/>

@@ -17,7 +17,6 @@ function App() {
     <div className="App text-white">
         <BrowserRouter>
             <Navbar/>
-            
                 <Switch>
                     <Route exact path="/" component={ ArticlesList } />
                     <Route path="/details/:id" component={ ArticleDetails } />
@@ -30,7 +29,6 @@ function App() {
                     <Route exact path="/register" component={  } />
                     <Route exact path="/login" component={  } />*/}
                 </Switch>
-            
         </BrowserRouter>
     </div>
   );
