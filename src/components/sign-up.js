@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 
 export default class signUp extends Component {
     constructor(props){
