@@ -11,27 +11,27 @@ import EditArticle from './components/edit-article';
 import DeleteArticle from './components/delete-article';
 import CreateLenguage from './components/create-lenguage';
 import CreateUser from './components/create-user';
+import SignUp from './components/sign-up';
 
 function App() {
   return (
     <div className="App text-white">
         <BrowserRouter>
-            <Navbar/>
-                <Switch>
-                    <Route exact path="/" component={ ArticlesList } />
-                    <Route path="/details/:id" component={ ArticleDetails } />
-                    <Route path="/create" component={ CreateArticle } />
-                    <Route path="/edit/:id" component={ EditArticle } />
-                    <Route path="/deleted" component={ DeleteArticle } />
-                    <Route path="/lenguage" component={ CreateLenguage } />
-                    <Route path="/signup" component={ CreateUser } />
-                    {/*
-                    <Route exact path="/register" component={  } />
-                    <Route exact path="/login" component={  } />*/}
-                </Switch>
+            <Switch>
+                <Route exact path="/" component={ SignUp } />
+                <Navbar/>
+                <Route path="/dashboard" component={ ArticlesList } />
+                <Route path="/details/:id" component={ ArticleDetails } />
+                <Route path="/create" component={ CreateArticle } />
+                <Route path="/edit/:id" component={ EditArticle } />
+                <Route path="/deleted" component={ DeleteArticle } />
+                <Route path="/lenguage" component={ CreateLenguage } />
+                <Route path="/signup" component={ CreateUser } />
+            </Switch>
         </BrowserRouter>
     </div>
   );
 }
 
 export default App;
+
