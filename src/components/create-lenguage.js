@@ -10,6 +10,7 @@ export default class CreateUsers extends Component {
         }
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitHandle = this.onSubmitHandle.bind(this);
     }
 
     componentDidMount(){
@@ -43,6 +44,11 @@ export default class CreateUsers extends Component {
         })
     }
 
+    onSubmitHandle(e){
+        e.preventDefault();
+        console.log('testing');
+    }   
+
     render() {
         return (
             <div>
@@ -59,7 +65,11 @@ export default class CreateUsers extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Add" className="btn btn-primary"/>
+                        <input 
+                            type="submit" 
+                            value="Add" 
+                            className="btn btn-primary"
+                            onSubmit={ this.onSubmitHandle }/>
                     </div>
                 </form>
                 <h3>Available languages</h3>
