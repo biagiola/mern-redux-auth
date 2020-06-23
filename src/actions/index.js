@@ -1,6 +1,5 @@
-export const changeShowNavbar = data => dispatch => {
+export const changeShowNavbar = () => dispatch => {
     dispatch({
-        type: 'SHOW_HIDE_NAVBAR',
-        payload: data
+        type: 'SWITCH_NAVBAR'
     });
 }
