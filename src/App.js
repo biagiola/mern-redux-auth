@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 import Navbar from './components/navbar';
 import ArticlesList from './components/article-list';
@@ -12,19 +14,15 @@ import DeleteArticle from './components/delete-article';
 import CreateLenguage from './components/create-lenguage';
 import CreateUser from './components/create-user';
 import SignUp from './components/sign-up';
-import axios from 'axios';
 
-export default class App extends Component {
-
-  componentDidMount(){
-    axios.post('http://localhost:5000/auth/register0', )
-  }
+class App extends Component {
 
   render(){
+    console.log('this.props.showNavbar app.js', this.props.showNavbar) 
     return (
       <div className="App text-white">
           <BrowserRouter>
-              { false && <Navbar/>     }
+              { this.props.showNavbar && <Navbar/>     }
               <Switch>
                   <Route exact path="/" component={ SignUp } />
                   <Route path="/dashboard" component={ ArticlesList } />
@@ -42,3 +40,12 @@ export default class App extends Component {
   
 }
 
+App.propTypes = {
+  showNavbar: PropTypes.bool
+}
+
+const mapStateToProps = state => ({
+  showNavbar: state.casa.switchNavbar
+})
+
+export default connect(mapStateToProps, null)(App);
