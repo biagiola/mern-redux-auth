@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { changeShowNavbar } from '../actions';
 
-export default class Navbar extends Component {
+
+class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.handleLogOut = this.handleLogOut.bind(this);
+    }
+
+    handleLogOut() {
+        this.props.changeShowNavbar()
+    }
+ 
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark navbar-expand-sm">
@@ -20,9 +33,27 @@ export default class Navbar extends Component {
                         <li className="navbar-item">
                             <Link to="/register" className="nav-link">Add User</Link>
                         </li>
+                        
                     </ul>
+                    { !this.props.showNavbar  && <ul className="navbar-nav left">
+                        <li>
+                            <Link to="/" className="nav-link" onClick={ this.handleLogOut }>Log out</Link>
+                        </li>
+                    </ul> }
                 </div>
             </nav>
         );
     }
 }
+
+Navbar.propTypes = {
+    changeShowNavbar: PropTypes.func
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeShowNavbar: () => dispatch(changeShowNavbar())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Navbar);

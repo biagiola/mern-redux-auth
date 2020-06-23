@@ -52,7 +52,7 @@ export default class CreateUsers extends Component {
     render() {
         return (
             <div>
-                <h3>Add new lenguage</h3>
+                <h3 className="container mt-2">Add new lenguage</h3>
                 <form onSubmit={ this.onSubmit } className="container">
                     <div className='form-group'>
                         <label>Lenguage: </label>

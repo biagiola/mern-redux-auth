@@ -80,7 +80,7 @@ export default class CreateArticle extends Component {
     render() {
         return (
             <div>
-                <h3>Create New Article</h3>
+                <h3 className="container mt-2">Create New Article</h3>
                 <form onSubmit={ this.onSubmit } className="container">
                     <div className='form-group'>
                         <label>Lenguage: </label>

@@ -55,8 +55,7 @@ export default class ArticlesList extends Component {
     
     render() {
         return (
-            <div className="container">
-                <h6>Show</h6>
+            <div className="container mt-3">
                 <select
                     defaultValue="all"
                     className="form-control"

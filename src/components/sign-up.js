@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { changeShowNavbar } from '../actions';
 
-export default class signUp extends Component {
+class SignUp extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -36,8 +39,12 @@ export default class signUp extends Component {
 
         axios.post('http://localhost:5000/auth/login', newUser)
             .then( res => {
-                alert(res.data.email);
-                window.location = "/dashboard" })
+                //alert('you are in, '+res.data.name);
+                this.props.changeShowNavbar();
+                console.log('this.props.showNavbar sigup.js',this.props.showNavbar);
+                this.props.history.push('/dashboard')
+            })
+                //window.location = "/dashboard" })
             .catch( error => {
                 console.log(error);
                 alert(error.response.data )}
@@ -70,3 +77,21 @@ export default class signUp extends Component {
         )
     }
 }
+
+  SignUp.propTypes = {
+    changeShowNavbar: PropTypes.func,
+    showNavbar: PropTypes.bool
+  }
+
+
+  const mapStateToProps = state => ({
+    showNavbar: state.casa.switchNavbar
+  })
+
+  const mapDispatchToProps = dispatch => {
+    return {
+        changeShowNavbar: () => dispatch(changeShowNavbar()),
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

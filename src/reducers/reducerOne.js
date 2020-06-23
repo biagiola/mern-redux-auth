@@ -1,5 +1,6 @@
 const initialState = {
-    switchNavbar: false
+    switchNavbar: false,
+    logout: false
 }
 
 console.log('hola');
@@ -9,7 +10,12 @@ export default function(state = initialState, action) {
         case 'SWITCH_NAVBAR':
             return {
                 ...state,
-                switchNavbar: true
+                switchNavbar: !state.switchNavbar
+            }
+        case 'LOGOUT':
+            return {
+                ...state,
+                logout: !state.logout
             }
         default:
             return state;
