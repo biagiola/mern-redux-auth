@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Article = props => (
     <tr>
         <td>
-            <Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
+<Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
         </td>
     </tr>
 )
@@ -16,6 +16,7 @@ export default class ArticlesList extends Component {
         super(props)
         this.state = {
             articles: [],
+            setLenguage: '',
             lenguage: '',
             lenguages: []
         };
@@ -25,17 +26,17 @@ export default class ArticlesList extends Component {
     
     componentDidMount() {
         axios.get( 'http://localhost:5000/articles/' )
-        .then( response => {
-            this.setState({ articles: response.data })
+        .then( res => {
+            this.setState({ articles: res.data })
         })
         .catch( error => console.log(error) )
 
         axios.get('http://localhost:5000/lenguages/')
-        .then( response => {
-            if( response.data.length > 0 ) {
+        .then( res => {
+            if( res.data.length > 0 ) {
                 this.setState({
-                    lenguages: response.data.map( lenguages => lenguages.lenguage),
-                    lenguage: response.data[0].lenguage
+                    lenguages: res.data.map( lenguages => lenguages.lenguage),
+                    lenguage: res.data[0].lenguage
                 })
             }
         })
@@ -56,6 +57,7 @@ export default class ArticlesList extends Component {
     render() {
         return (
             <div className="container mt-3">
+                <h6>Articles</h6>
                 <select
                     defaultValue="all"
                     className="form-control"
@@ -73,8 +75,8 @@ export default class ArticlesList extends Component {
                     })
                 }
                 </select>
-                <h6>Articles</h6>
-                <table className="table">
+                
+                <table className="table table-dark mt-3">
                     <tbody>
                         { this.articleList() }
                     </tbody>

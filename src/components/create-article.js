@@ -74,7 +74,7 @@ export default class CreateArticle extends Component {
         axios.post('http://localhost:5000/articles/add', article)
         .then( res => console.log( res.data ) );
 
-        window.location = '/';
+        this.props.history.push('/dashboard');
     }
 
     render() {
@@ -135,7 +135,6 @@ export default class CreateArticle extends Component {
                     <div className="form-group">
                         <input type="submit" value="Create Exercise Log" className="btn btn-primary"/>
                     </div>
-
                 </form>
             </div>
         )

@@ -24,7 +24,7 @@ export default class EditArticle extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/exercises/'+ this.props.match.params.id)
+    axios.get('http://localhost:5000/articles/'+ this.props.match.params.id)
     .then(response => {
         this.setState({
             lenguage: response.data.lenguage,
@@ -90,71 +90,55 @@ export default class EditArticle extends Component {
 
     console.log(article);
 
-    axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, article)
+    axios.post('http://localhost:5000/articles/update/' + this.props.match.params.id, article)
       .then(res => console.log(res.data));
 
-    window.location = '/';
+    alert('Article updated');
+    this.props.history.push('/dashboard');
   }
 
   render() {
     return (
     <div>
-        {/*<div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
-              {
-                this.state.users.map(function(user) {
-                  return <option 
-                    key={user}
-                    value={user}>{user}
-                    </option>;
-                })
-              }
-          </select>
-        </div>*/}
-        <h3>Edit Article Log</h3>
-        <form onSubmit={this.onSubmit} className="container">
-            <div className="form-group">
-                <label>Title:</label>
-                <input
-                    type="text"
-                    required
-                    className="form-control text-dark"
-                    value={this.state.title}
-                    onChange={this.onChangeTitle}
-                />
-            </div>
-            <div className="form-group"> 
-            <label>Description: </label>
-            <textarea  
-                type="text"
-                required
-                className="form-control text-dark"
-                rows="15"
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                />
-            </div>
-            <div className="form-group">
-            <label>Date: </label>
-            <div>
-                <DatePicker
-                selected={this.state.date}
-                onChange={this.onChangeDate}
-                className="text-dark"
-                />
-            </div>
-            </div>
+      <h3>Edit Article</h3>
+      <form onSubmit={this.onSubmit} className="container">
+        <div className="form-group">
+          <label>Title:</label>
+          <input
+            type="text"
+            required
+            className="form-control text-dark"
+            value={this.state.title}
+            onChange={this.onChangeTitle}
+          />
+        </div>
+        <div className="form-group"> 
+          <label>Description: </label>
+          <textarea  
+            type="text"
+            required
+            className="form-control text-dark"
+            rows="15"
+            value={this.state.description}
+            onChange={this.onChangeDescription}
+            />
+        </div>
+        <div className="form-group">
+          <label>Date: </label>
+          <div>
+            <DatePicker
+            selected={this.state.date}
+            onChange={this.onChangeDate}
+            className="text-dark"
+            />
+          </div>
+        </div>
 
-            <div className="form-group">
-            <input type="submit" value="Edit Article Log" className="btn btn-primary bg-primary text-light" />
-            </div>
+        <div className="form-group">
+          <input type="submit" value="save" className="btn btn-primary bg-primary text-light" />
+        </div>
 
-        </form>
+      </form>
     </div>
     )
   }
