@@ -99,7 +99,7 @@ export default class EditArticle extends Component {
 
   render() {
     return (
-    <div className="wrapper">
+    <div className="wrapper text-dark">
       <h3>Edit Article</h3>
       <form onSubmit={this.onSubmit} className="container">
         <div className="form-group">
