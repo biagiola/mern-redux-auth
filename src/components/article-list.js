@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
-    <tr>
-        <td>
+    <div>
+        <div>
             <Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
-        </td>
-    </tr>
+        </div>
+    </div>
 )
 
 export default class ArticlesList extends Component {
@@ -50,19 +50,21 @@ export default class ArticlesList extends Component {
 
         let outter = 0;
         this.state.articles.map( element => {
-            if (! e.target.value === element.lenguage) outter++  
+            if (! (e.target.value === element.lenguage)) {outter++  }
         })
 
         if(outter === this.state.articles.length) {
+            console.log(false);
             this.setState({ flag: false })
         } else {
+            console.log(true);
             this.setState({ flag: true })
         }
     }
 
     articleList() {
         return this.state.articles.map( currentarticle => {
-            // validate the input lenguage with articles of that kind
+            // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
                 //if(currentarticle == null) return console.log('hola')
                 return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
@@ -93,14 +95,14 @@ export default class ArticlesList extends Component {
                 }
                 </select>
                 
-                <table className="table table-dark mt-3">
+                <div className="text-center mt-3">
                     {
                         (this.state.flag) ? 
-                            <tbody>{ this.articleList() }</tbody> 
+                            <div>{ this.articleList() }</div> 
                         :
                             <Link to={'/create' } className="btn btn-primary">Add a new oen</Link>
                     }
-                </table>
+                </div>
             </div>
         )
     }
