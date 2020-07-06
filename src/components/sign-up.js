@@ -54,7 +54,7 @@ class SignUp extends Component {
 
     render() {
         return (
-            <div className="container mt-5"> 
+            <div className="wrapper container mt-5"> 
                 <form onSubmit={ this.onSubmit } className="form-group">
                     <input 
                         id="femail"

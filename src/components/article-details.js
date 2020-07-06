@@ -61,10 +61,10 @@ export default class ArticleDetails extends Component {
     render(props) {
 
         return (
-            <div>
-                <h6 className="container mt-3">{ this.state.title }</h6>
+            <div className="wrapper container">
+                <h6 className="text-dark text-center mt-3">{ this.state.title }</h6>
                 
-                <div className="text-dark bg-light container card-body rounded-0">
+                <div className="text-dark container card p-3">
                     {this.state.description}
                 </div>
 
@@ -72,6 +72,8 @@ export default class ArticleDetails extends Component {
                 <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
                 <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
                 <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+            
+                
             </div>
         )
     }

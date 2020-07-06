@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const DeleteArticle = () => {
     return ( 
-        <div className="container">
+        <div className="wrapper container">
             <div>Article was deleted</div><br/>
             <Link to={'/'} className="btn btn-primary">Go back</Link>
         </div>

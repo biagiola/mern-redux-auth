@@ -66,7 +66,6 @@ export default class ArticlesList extends Component {
         return this.state.articles.map( currentarticle => {
             // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
-                //if(currentarticle == null) return console.log('hola')
                 return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
             }
         })
@@ -74,7 +73,7 @@ export default class ArticlesList extends Component {
     
     render() {
         return (
-            <div className="container mt-3">
+            <div className="wrapper container mt-3">
                 <h6>Articles</h6>
                 <select
                     defaultValue="all"
@@ -95,10 +94,10 @@ export default class ArticlesList extends Component {
                 }
                 </select>
                 
-                <div className="">
+                <div className="wrapper container">
                     {
                         (this.state.flag) ? 
-                            <div className="list-group mt-3">{ this.articleList() }</div> 
+                            <div className=" list-group mt-3">{ this.articleList() }</div> 
                         :
                             <Link to={'/create' } className="btn btn-primary mt-3">Add a new oen</Link>
                     }

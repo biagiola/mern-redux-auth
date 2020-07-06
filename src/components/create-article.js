@@ -79,7 +79,7 @@ export default class CreateArticle extends Component {
 
     render() {
         return (
-            <div className="text-dark">
+            <div className="wrapper text-dark">
                 <h3 className="text-dark container mt-2">Create New Article</h3>
                 <form onSubmit={ this.onSubmit } className="container">
                     <div className='form-group'>
