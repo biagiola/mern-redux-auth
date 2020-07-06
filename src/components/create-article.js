@@ -79,8 +79,8 @@ export default class CreateArticle extends Component {
 
     render() {
         return (
-            <div>
-                <h3 className="container mt-2">Create New Article</h3>
+            <div className="text-dark">
+                <h3 className="text-dark container mt-2">Create New Article</h3>
                 <form onSubmit={ this.onSubmit } className="container">
                     <div className='form-group'>
                         <label>Lenguage: </label>
@@ -102,7 +102,7 @@ export default class CreateArticle extends Component {
                         }
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group text-dark">
                         <label>Title:</label>
                         <input
                             type="text"
@@ -118,7 +118,7 @@ export default class CreateArticle extends Component {
                             type="text"
                             required
                             className="form-control"
-                            rows="17"
+                            rows="8"
                             value={ this.state.description }
                             onChange={ this.onChangeDescription }
                         />
