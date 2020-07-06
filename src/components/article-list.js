@@ -95,12 +95,12 @@ export default class ArticlesList extends Component {
                 }
                 </select>
                 
-                <div className="text-center mt-3">
+                <div >
                     {
                         (this.state.flag) ? 
-                            <div>{ this.articleList() }</div> 
+                            <div className="card text-center mt-3">{ this.articleList() }</div> 
                         :
-                            <Link to={'/create' } className="btn btn-primary">Add a new oen</Link>
+                            <Link to={'/create' } className="btn btn-primary mt-3">Add a new oen</Link>
                     }
                 </div>
             </div>
