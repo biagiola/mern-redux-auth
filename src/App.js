@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="App text-white">
           <BrowserRouter>
-              { !this.props.showNavbar && <Navbar/> }
+              { this.props.showNavbar && <Navbar/> }
               <Route render={( { location } ) => (
                     <TransitionGroup>
                         <CSSTransition

@@ -22,13 +22,13 @@ class Navbar extends Component {
                 <div className="collpase navbar-collapse">
                     <ul className="navbar-nav mr-auto">
                         <li className="navbar-item">
-                            <Link to="/dashboard" className="nav-link">List</Link>
+                            <Link to="/dashboard" className="nav-link">Blog</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/create" className="nav-link">Create Article</Link>
+                            <Link to="/create" className="nav-link">Add</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/lenguage" className="nav-link">Lenguages</Link>
+                            <Link to="/lenguage" className="nav-link">Lenguage</Link>
                         </li>
                         <li className="navbar-item">
                             <Link to="/register" className="nav-link">Add User</Link>

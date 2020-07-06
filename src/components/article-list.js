@@ -99,7 +99,7 @@ export default class ArticlesList extends Component {
                         (this.state.flag) ? 
                             <div className=" list-group mt-3">{ this.articleList() }</div> 
                         :
-                            <Link to={'/create' } className="btn btn-primary mt-3">Add a new oen</Link>
+                            <Link to={'/create' } className="btn btn-primary mt-3">Add a new article</Link>
                     }
                 </div>
             </div>
