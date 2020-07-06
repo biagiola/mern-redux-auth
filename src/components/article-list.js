@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Article = props => (
     <tr>
         <td>
-<Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
+            <Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
         </td>
     </tr>
 )
@@ -21,25 +21,26 @@ export default class ArticlesList extends Component {
             lenguages: []
         };
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
-        
     }
     
     componentDidMount() {
+        // get the articles before the render
         axios.get( 'http://localhost:5000/articles/' )
-        .then( res => {
-            this.setState({ articles: res.data })
-        })
-        .catch( error => console.log(error) )
-
+            .then( res => {
+                this.setState({ articles: res.data })
+            })
+            .catch( error => console.log(error) )
+        
+        // get the lenguages before the render
         axios.get('http://localhost:5000/lenguages/')
-        .then( res => {
-            if( res.data.length > 0 ) {
-                this.setState({
-                    lenguages: res.data.map( lenguages => lenguages.lenguage),
-                    lenguage: res.data[0].lenguage
-                })
-            }
-        })
+            .then( res => {
+                if( res.data.length > 0 ) {
+                    this.setState({
+                        lenguages: res.data.map( lenguages => lenguages.lenguage),
+                        lenguage: res.data[0].lenguage
+                    })
+                }
+            })
     }
 
     onChangeLenguage(e) {

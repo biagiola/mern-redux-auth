@@ -16,7 +16,6 @@ export default class ArticleDetails extends Component {
       id: '',
     }
         this.deleteArticle = this.deleteArticle.bind(this);
-        this.paragraph = React.createRef();
     }
 
     componentDidMount() {
@@ -65,7 +64,7 @@ export default class ArticleDetails extends Component {
             <div>
                 <h6 className="container mt-3">{ this.state.title }</h6>
                 
-                <div ref={ this.paragraph }>
+                <div className="text-dark bg-light container card-body rounded-0">
                     {this.state.description}
                 </div>
 

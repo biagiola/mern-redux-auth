@@ -18,20 +18,20 @@ import SignUp from './components/sign-up';
 class App extends Component {
 
   render(){
-    console.log('this.props.showNavbar app.js', this.props.showNavbar) 
     return (
       <div className="App text-white">
           <BrowserRouter>
-              { this.props.showNavbar && <Navbar/>     }
+              { !this.props.showNavbar && <Navbar/> }
               <Switch>
-                  <Route exact path="/" component={ SignUp } />
-                  <Route path="/dashboard" component={ ArticlesList } />
-                  <Route path="/details/:id" component={ ArticleDetails } />
-                  <Route path="/create" component={ CreateArticle } />
-                  <Route path="/edit/:id" component={ EditArticle } />
-                  <Route path="/deleted" component={ DeleteArticle } />
-                  <Route path="/lenguage" component={ CreateLenguage } />
-                  <Route path="/signup" component={ CreateUser } />
+                <Route path="/dashboard" component={ ArticlesList } />
+                <Route exact path="/" component={ SignUp } />
+                <Route path="/details/:id" component={ ArticleDetails } />
+                <Route path="/create" component={ CreateArticle } />
+                <Route path="/edit/:id" component={ EditArticle } />
+                <Route path="/deleted" component={ DeleteArticle } />
+                <Route path="/lenguage" component={ CreateLenguage } />
+                <Route path="/signup" component={ CreateUser } />
+                <Route path="*" component={ () => "404 not found" } />
               </Switch>
           </BrowserRouter>
       </div>

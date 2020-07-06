@@ -24,11 +24,13 @@ class SignUp extends Component {
             email: e.target.value
         });
     }
+
     changePassword(e) {
         this.setState({
             password: e.target.value
         });
     }
+
     onSubmit(e) {
         e.preventDefault();
 
@@ -44,7 +46,6 @@ class SignUp extends Component {
                 console.log('this.props.showNavbar sigup.js',this.props.showNavbar);
                 this.props.history.push('/dashboard')
             })
-                //window.location = "/dashboard" })
             .catch( error => {
                 console.log(error);
                 alert(error.response.data )}
@@ -78,20 +79,19 @@ class SignUp extends Component {
     }
 }
 
-  SignUp.propTypes = {
+SignUp.propTypes = {
     changeShowNavbar: PropTypes.func,
     showNavbar: PropTypes.bool
-  }
+}
 
-
-  const mapStateToProps = state => ({
+const mapStateToProps = state => ({
     showNavbar: state.casa.switchNavbar
-  })
+})
 
-  const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         changeShowNavbar: () => dispatch(changeShowNavbar()),
     }
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

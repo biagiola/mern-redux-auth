@@ -1,22 +1,18 @@
 const initialState = {
-    switchNavbar: false,
+    switchNavbar: true,
     logout: false
 }
-
-console.log('hola');
-
+console.log('reducer')
 export default function(state = initialState, action) {
     switch(action.type){
         case 'SWITCH_NAVBAR':
+            console.log('SWITCH_NAVBAR')
             return {
                 ...state,
                 switchNavbar: !state.switchNavbar
             }
         case 'LOGOUT':
-            return {
-                ...state,
-                logout: !state.logout
-            }
+            
         default:
             return state;
     }

@@ -12,6 +12,7 @@ class Navbar extends Component {
     }
 
     handleLogOut() {
+        console.log('handleout navbar')
         this.props.changeShowNavbar()
     }
  
