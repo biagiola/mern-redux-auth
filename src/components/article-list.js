@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Article = props => (
     <div>
         <div>
-            <Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
+            <Link className="list-group-item list-group-item-active" to={ '/details/' + props.article._id }>{ props.article.title }</Link>
         </div>
     </div>
 )
@@ -95,10 +95,10 @@ export default class ArticlesList extends Component {
                 }
                 </select>
                 
-                <div >
+                <div className="">
                     {
                         (this.state.flag) ? 
-                            <div className="card text-center mt-3">{ this.articleList() }</div> 
+                            <div className="list-group mt-3">{ this.articleList() }</div> 
                         :
                             <Link to={'/create' } className="btn btn-primary mt-3">Add a new oen</Link>
                     }
