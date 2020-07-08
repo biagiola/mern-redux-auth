@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
     <div>
-        <div>
-            <Link className="list-group-item list-group-item-active" to={ '/details/' + props.article._id }>{ props.article.title }</Link>
-        </div>
+        <Link to={ '/details/' + props.article._id }>{ props.article.title }</Link>
     </div>
 )
 
@@ -22,15 +20,12 @@ export default class ArticlesList extends Component {
         };
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
     }
+
+    componentWillMount() {
+        console.log('componentWillMount')
+    }
     
     componentDidMount() {
-        // get the articles before the render
-        axios.get( 'http://localhost:5000/articles/' )
-            .then( res => {
-                this.setState({ articles: res.data })
-            })
-            .catch( error => console.log(error) )
-        
         // get the lenguages before the render
         axios.get('http://localhost:5000/lenguages/')
             .then( res => {
@@ -41,16 +36,26 @@ export default class ArticlesList extends Component {
                     })
                 }
             })
+
+        // get the articles before the render
+        axios.get( 'http://localhost:5000/articles/' )
+            .then( res => {
+                this.setState({ articles: res.data })
+            })
+            .catch( error => console.log(error) )
+
+        console.log('componentDidMount, articles', this.state.articles)
     }
 
     onChangeLenguage(e) {
+        console.log('onChangeLenguage')
         this.setState({
             lenguage: e.target.value
         })
 
         let outter = 0;
         this.state.articles.map( element => {
-            if (! (e.target.value === element.lenguage)) {outter++  }
+            if (! (e.target.value === element.lenguage)) outter++  
         })
 
         if(outter === this.state.articles.length) {
@@ -63,15 +68,24 @@ export default class ArticlesList extends Component {
     }
 
     articleList() {
-        return this.state.articles.map( currentarticle => {
+        console.log('articleList')
+        return this.state.articles.length ? this.state.articles.map( currentarticle => {
             // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
                 return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
             }
-        })
+        }) :
+        (<Link to={'/create' } className="btn btn-primary mt-3">bAdd a new article</Link>)
     }
     
     render() {
+        const updatedStates = (this.state.articles.length) ? true : false
+
+        const show = (this.state.articles.length) ? 
+                <div className="list-group mt-3">{ this.articleList() }</div> 
+            :
+                <Link to={'/create' } className="btn btn-primary mt-3">aAdd a new article</Link>
+
         return (
             <div className="wrapper container mt-3">
                 <h6>Articles</h6>
@@ -80,7 +94,6 @@ export default class ArticlesList extends Component {
                     className="form-control"
                     value={ this.state.lenguage }
                     onChange={ this.onChangeLenguage }
-                    
                 >
                 {
                     this.state.lenguages.map( function(lenguage) {
@@ -93,15 +106,11 @@ export default class ArticlesList extends Component {
                     })
                 }
                 </select>
-                
-                <div className="wrapper container">
-                    {
-                        (this.state.flag) ? 
-                            <div className=" list-group mt-3">{ this.articleList() }</div> 
-                        :
-                            <Link to={'/create' } className="btn btn-primary mt-3">Add a new article</Link>
-                    }
-                </div>
+                {
+                    /* the first react render call doeas not have the states updated
+                    /*before to bring our articles to our state, we must to avoid to show the adds buttons*/
+                    (updatedStates) ? show : <div className="text-dark"></div>
+                }
             </div>
         )
     }
