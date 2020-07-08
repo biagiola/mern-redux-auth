@@ -1,8 +1,9 @@
 const initialState = {
     switchNavbar: true,
-    logout: false
+    logout: false,
+    gone: false,
 }
-console.log('reducer')
+
 export default function(state = initialState, action) {
     switch(action.type){
         case 'SWITCH_NAVBAR':
@@ -11,8 +12,11 @@ export default function(state = initialState, action) {
                 ...state,
                 switchNavbar: !state.switchNavbar
             }
-        case 'LOGOUT':
-            
+        case 'ARTICLES_GONE':
+            return {
+                ...state,
+                gone: !state.gone
+            }            
         default:
             return state;
     }

@@ -4,3 +4,10 @@ export const changeShowNavbar = () => dispatch => {
         type: 'SWITCH_NAVBAR'
     });
 }
+
+export const articlesGone = () => dispatch => {
+    console.log('actions articlesGone')
+    dispatch({
+        type: 'ARTICLES_GONE'
+    });
+}

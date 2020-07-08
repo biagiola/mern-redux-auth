@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
@@ -9,20 +11,16 @@ const Article = props => (
     </div>
 )
 
-export default class ArticlesList extends Component {
+class ArticlesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
             articles: [],
             lenguages: [],
             lenguage: '',
-            flag: true
+            flag: true,
         };
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
-    }
-
-    componentWillMount() {
-        console.log('componentWillMount')
     }
     
     componentDidMount() {
@@ -68,7 +66,6 @@ export default class ArticlesList extends Component {
     }
 
     articleList() {
-        console.log('articleList')
         return this.state.articles.length ? this.state.articles.map( currentarticle => {
             // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
@@ -79,7 +76,9 @@ export default class ArticlesList extends Component {
     }
     
     render() {
-        const updatedStates = (this.state.articles.length) ? true : false
+        console.log('render',this.state.articles)
+        console.log('render, gone',this.props.gone)
+        const updatedStates = (this.state.articles.length && !this.props.gone) ? true : false
 
         const show = (this.state.articles.length) ? 
                 <div className="list-group mt-3">{ this.articleList() }</div> 
@@ -109,9 +108,19 @@ export default class ArticlesList extends Component {
                 {
                     /* the first react render call doeas not have the states updated
                     /*before to bring our articles to our state, we must to avoid to show the adds buttons*/
-                    (updatedStates) ? show : <div className="text-dark"></div>
+                    (true) ? show : <div className="text-dark">loading...</div>
                 }
             </div>
         )
     }
 }
+
+ArticlesList.propTypes = {
+    gone: PropTypes.bool
+}
+
+const mapStateToProps = state => ({
+    gone: state.casa.gone
+})
+
+export default connect(mapStateToProps, null)(ArticlesList)

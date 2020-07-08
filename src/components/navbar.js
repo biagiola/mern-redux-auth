@@ -7,8 +7,8 @@ import { changeShowNavbar } from '../actions';
 
 class Navbar extends Component {
     constructor(props) {
-        super(props);
-        this.handleLogOut = this.handleLogOut.bind(this);
+        super(props)
+        this.handleLogOut = this.handleLogOut.bind(this)
     }
 
     handleLogOut() {
@@ -56,4 +56,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Navbar)
