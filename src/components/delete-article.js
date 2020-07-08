@@ -5,7 +5,7 @@ const DeleteArticle = () => {
     return ( 
         <div className="wrapper container">
             <div>Article was deleted</div><br/>
-            <Link to={'/'} className="btn btn-primary">Go back</Link>
+            <Link to={'/dashboard'} className="btn btn-primary">Go back</Link>
         </div>
         
     );
