@@ -18,8 +18,9 @@ class ArticlesList extends Component {
             articles: [],
             lenguages: [],
             lenguage: '',
-            flag: true,
-            linkTag:''
+            currentLenguage: true,
+            linkTag:false,
+            counter: 0
         };
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
     }
@@ -47,55 +48,94 @@ class ArticlesList extends Component {
     }
 
     onChangeLenguage(e) {
-        console.log('onChangeLenguage')
+        if(e === undefined) {
+            if(this.state.counter===0){this.setState({
+                currentLenguage: false,
+            })
+            }
+            return
+        }
+        console.log('onChangeLenguage', e.target.value)
         this.setState({
             lenguage: e.target.value
         })
 
         let outter = 0;
         this.state.articles.map( element => {
-            if (! (e.target.value === element.lenguage)) outter++  
+            if ( (e.target.value === element.lenguage)) return outter++  
         })
 
-        if(outter === this.state.articles.length) {
-            console.log(false);
-            this.setState({ flag: false })
+        if(outter === 0) { // there is not elements of this lenguage
+            console.log('currentLenguage', false)
+            this.setState({ currentLenguage: false })
         } else {
-            console.log(true);
-            this.setState({ flag: true })
+            console.log('currentLenguage', true);
+            this.setState({ currentLenguage: true })
         }
     }
 
     articleList() {
+        if(this.state.counter === 0){this.setState({
+            counter: this.state.counter+1
+        })}
+
+        console.log('articleList',this.state.articles[this.state.lenguage])
         /* if there are not any articles of that especific lenguage we show a linkTag to go to "add new one"*/
-        return this.state.articles.length ? this.state.articles.map( currentarticle => {
+        return (this.state.articles && this.state.currentLenguage ) ? this.state.articles.map( currentarticle => {
+            console.log('articleList enter if')
             // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
                 return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
-            }
+            }  
         }) :
-        (<Link to={'/create' } className="btn btn-primary mt-3">bAdd a new article</Link>)
+        <Link to={'/create' } className="btn btn-primary mt-3">bAdd a new article</Link>
+
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextState !== this.state) {
+            console.log('shouldComponentUpdate', true)
+            return true
+        }
+        console.log('shouldComponentUpdate', false)
+        return false
     }
     
     //this lifecycle method we make sure to not show the "add button" in the first render call when componentDidMound is still
     //saving the data from the db to the state. 
-    getDerivedStateFromProps() {
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log('getSnapshotBeforeUpdate prevState.articles', prevState.articles)
+        console.log('getSnapshotBeforeUpdate state.articles', this.state.articles)
+        if (prevState.articles === this.state.articles) {
+            return true     
+        }
         this.setState({
-            linkTag: <Link to={'/create' } className="btn btn-primary mt-3">aAdd a new article</Link>
+            linkTag: <Link to={'/create' } className="btn btn-primary mt-3">aAdd a new one</Link>
         })
+        return false
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('componentDidUpdate prevState.articles', prevState.articles, snapshot)
+        console.log('componentDidUpdate state.articles', this.state.articles, snapshot)
+        
+        if(prevProps.articles === this.state.articles) {
+            console.log('componentDidUpdate enter')
+            this.setState({
+                currentLenguage: false
+            })
+        }
     }
 
     render() {
-        const show = (this.state.articles.length) ? 
-                <div className="list-group mt-3">{ this.articleList() }</div> 
-            :
-                <Link to={'/create' } className="btn btn-primary mt-3">aAdd a new article</Link>
-
+        const show = <div className="list-group mt-3">{ this.articleList() }</div> 
+        this.onChangeLenguage()
+        console.log('render articles', this.state.articles.length)
+        //console.log('gone',this.props.gone)
         return (
             <div className="wrapper container mt-3">
                 <h6>Articles</h6>
                 <select
-                    defaultValue="all"
                     className="form-control"
                     value={ this.state.lenguage }
                     onChange={ this.onChangeLenguage }
