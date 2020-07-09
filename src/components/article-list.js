@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { PropTypes } from 'prop-types'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
@@ -19,6 +19,7 @@ class ArticlesList extends Component {
             lenguages: [],
             lenguage: '',
             flag: true,
+            linkTag:''
         };
         this.onChangeLenguage = this.onChangeLenguage.bind(this);
     }
@@ -66,6 +67,7 @@ class ArticlesList extends Component {
     }
 
     articleList() {
+        /* if there are not any articles of that especific lenguage we show a linkTag to go to "add new one"*/
         return this.state.articles.length ? this.state.articles.map( currentarticle => {
             // show only the articles according the lenguage selected
             if(currentarticle.lenguage === this.state.lenguage) {
@@ -75,11 +77,15 @@ class ArticlesList extends Component {
         (<Link to={'/create' } className="btn btn-primary mt-3">bAdd a new article</Link>)
     }
     
-    render() {
-        console.log('render',this.state.articles)
-        console.log('render, gone',this.props.gone)
-        const updatedStates = (this.state.articles.length && !this.props.gone) ? true : false
+    //this lifecycle method we make sure to not show the "add button" in the first render call when componentDidMound is still
+    //saving the data from the db to the state. 
+    getDerivedStateFromProps() {
+        this.setState({
+            linkTag: <Link to={'/create' } className="btn btn-primary mt-3">aAdd a new article</Link>
+        })
+    }
 
+    render() {
         const show = (this.state.articles.length) ? 
                 <div className="list-group mt-3">{ this.articleList() }</div> 
             :
@@ -106,9 +112,8 @@ class ArticlesList extends Component {
                 }
                 </select>
                 {
-                    /* the first react render call doeas not have the states updated
-                    /*before to bring our articles to our state, we must to avoid to show the adds buttons*/
-                    (true) ? show : <div className="text-dark">loading...</div>
+                    /* if there are not any articles of any lenguage we show a linkTag to go to "add new one"*/
+                    (this.state.articles.length) ? show : this.state.linkTag
                 }
             </div>
         )
@@ -118,7 +123,6 @@ class ArticlesList extends Component {
 ArticlesList.propTypes = {
     gone: PropTypes.bool
 }
-
 const mapStateToProps = state => ({
     gone: state.casa.gone
 })
