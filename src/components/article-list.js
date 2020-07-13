@@ -56,19 +56,18 @@ export default class ArticlesList extends Component {
 
     articleList() {
         console.log('articleList')
-        return this.state.articles.map( currentarticle => {
+        return (this.state.articles.length) ? this.state.articles.map( currentarticle => {
             return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
-        }) 
+        }) : 
+        <Link to={ '/create' } className="list-group-item list-group-item-secondary btn btn-primary ">Add a new one</Link>
     }
     
     render() {
         console.log('render, articles', this.state.articles)
         return (
             <div className="wrapper container mt-3">
-                <h6>Articles</h6>
-                
                 {
-                    (this.state.articles.length) ? <div className="list-group mt-3">{ this.articleList() }</div>  : <div className="text-dark"></div>
+                    (this.state.articles.length) ? <div className="list-group mt-3">{ this.articleList() }</div> : <div className="text-dark"></div>
                 }
             </div>
         )

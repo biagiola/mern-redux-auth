@@ -31,7 +31,7 @@ class Navbar extends Component {
                             <Link to="/lenguage" className="nav-link">Lenguage</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/register" className="nav-link">Add User</Link>
+                            <Link to="/signup" className="nav-link">Add User</Link>
                         </li>
                         
                     </ul>

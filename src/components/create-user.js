@@ -45,8 +45,8 @@ export default class newUser extends Component {
 
         axios.post('http://localhost:5000/auth/register', newUser)
             .then( res => {
-                alert(res.data.name + " user has been added :)");
-                browserHistory.goBack()})
+                alert(res.data.name + " user has been added :)")
+                this.props.history.push('/dashboard')})
             .catch( error => {
                 console.log(error);
                 alert(error.response.data )}
