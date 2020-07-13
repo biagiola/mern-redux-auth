@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from 'react-router-dom';
 
 export default class EditArticle extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ export default class EditArticle extends Component {
 
         <div className="form-group">
           <input type="submit" value="save" className="btn btn-primary bg-primary text-light" />
+          <Link to={'/details/' + this.props.match.params.id} type="button" className="btn btn-primary bg-primary text-light">back</Link>
         </div>
 
       </form>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
     <div>
-        <Link to={ '/details/' + props.article._id } className="list-group-item btn btn-primary text-dark">{ props.article.title } - { props.article.lenguage }</Link>
+        <Link to={ '/details/' + props.article._id } className="list-group-item list-group-item-secondary btn btn-primary ">{ props.article.title } - { props.article.lenguage }</Link>
     </div>
 )
 
@@ -66,24 +66,7 @@ export default class ArticlesList extends Component {
         return (
             <div className="wrapper container mt-3">
                 <h6>Articles</h6>
-                <select
-                    defaultValue="all"
-                    className="form-control"
-                    value={ this.state.lenguage }
-                    onChange={ this.onChangeLenguage }
-                    
-                >
-                {
-                    this.state.lenguages.map( function(lenguage) {
-                        return (<option
-                                key={ lenguage }
-                                value={ lenguage }
-                            >
-                            { lenguage }
-                        </option>);
-                    })
-                }
-                </select>
+                
                 {
                     (this.state.articles.length) ? <div className="list-group mt-3">{ this.articleList() }</div>  : <div className="text-dark"></div>
                 }

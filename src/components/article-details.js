@@ -12,7 +12,7 @@ export default class ArticleDetails extends Component {
       date: new Date(),
       lenguages: [],
       articles: [],
-      fragmented: [],
+      showTitle: '',
       id: '',
     }
         this.deleteArticle = this.deleteArticle.bind(this);
@@ -58,22 +58,29 @@ export default class ArticleDetails extends Component {
         })
     }
 
-    render(props) {
+    getDerivedStateFromProps() {
+        this.setState({
+            showTitle: <h6 className="text-dark text-center mt-3">hola</h6>
+                
+        })
+    }
+
+    render() {
 
         return (
             <div className="wrapper container">
-                <h6 className="text-dark text-center mt-3">{ this.state.title }</h6>
-                
-                <div className="text-dark container card p-3">
-                    {this.state.description}
-                </div>
-
-                <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
-                <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-                <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
-                <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+                <div>
+                <h6 className="text-dark text-center mt-3">hola</h6>
             
-                
+                    <div className="text-dark container card p-3">
+                        {this.state.description}
+                    </div>
+
+                    <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
+                    <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
+                    <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
+                    <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+                </div>
             </div>
         )
     }
