@@ -108,7 +108,7 @@ export default class EditArticle extends Component {
           <input
             type="text"
             required
-            className="form-control text-dark"
+            className="form-control text-dark list-group-item-secondary"
             value={this.state.title}
             onChange={this.onChangeTitle}
           />
@@ -118,7 +118,7 @@ export default class EditArticle extends Component {
           <textarea  
             type="text"
             required
-            className="form-control text-dark"
+            className="form-control text-dark list-group-item-secondary"
             rows="15"
             value={this.state.description}
             onChange={this.onChangeDescription}
@@ -130,7 +130,7 @@ export default class EditArticle extends Component {
             <DatePicker
             selected={this.state.date}
             onChange={this.onChangeDate}
-            className="text-dark"
+            className="text-dark "
             />
           </div>
         </div>
