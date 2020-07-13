@@ -70,16 +70,19 @@ export default class ArticleDetails extends Component {
         return (
             <div className="wrapper container">
                 <div>
-                <h6 className="text-dark text-center mt-3">hola</h6>
+                    <h6 className="text-dark text-center mt-3">{ this.state.title }</h6>
             
-                    <div className="text-dark container card p-3">
+                    <div className="text-dark container card p-3" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
                         {this.state.description}
+                        <small style={ {'padding': '50px 0px 0px', } }>Written at: { this.state.date.toString().substr(0,10) }</small>
                     </div>
 
-                    <small>Written at: { this.state.date.toString().substr(0,10) }</small><br/>
-                    <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-                    <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
-                    <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+                    <div style={{ 'margin-top': '2rem'}}>
+                        <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
+                        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
+                        <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+                    </div>
+                    
                 </div>
             </div>
         )
