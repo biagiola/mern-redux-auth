@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const app = express();
-const cors = require('cors');
 const session = require('express-session')
+const app = express();
 const MongoStore = require('connect-mongo')(session)
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 // set port and env
 require('dotenv').config();
@@ -22,6 +22,7 @@ mongoose.connection.once('open', function(){
 app.use(express.urlencoded({extended: true})); //bodyparser
 app.use(cors());
 app.use(express.json());
+
 // node-session setup
 app.use(session({
     name: 'sid',
@@ -35,15 +36,17 @@ app.use(session({
         secure: 'development' === 'production' //in our case, this will be false
     }
 }))
+
 // this middleware will execute everytime
 app.use((req, res, next) => {
-    console.log('hola')
     const { userId } = req.session
+    console.log('hola: userId', req.session)
     if(userId) {
         res.locals.user = users.find(
             user => user.id === userId
         )
     }
+    console.log('hola: res.locals.user', res.locals.user)
     next()
 })
 
