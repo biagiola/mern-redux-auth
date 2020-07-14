@@ -3,15 +3,7 @@ let User = require('../models/user.model');
 const { registerValidation, loginValidation } = require('../../src/validation');
 const Joi = require('@hapi/joi');
 
-router.route('/').get( (req, res) => {
-    console.log('auth.js get');
-    User.find()
-        .then( users => res.json(users) )
-        .catch( err => res.status(400).json( 'Error: ' + err) );
-});
-
 router.route('/register').post(async (req, res) => {
-
     //Validate the email
     const { error } = registerValidation(req.body);
     if (error) {
@@ -35,6 +27,7 @@ router.route('/register').post(async (req, res) => {
     try{
         const savedUser = await user.save();
         console.log('auth.js /register', savedUser);
+        savedUser.message = "user has been saved";
         res.send(savedUser);
     }catch( err ) {
         console.log('auth.js ERROR');
@@ -42,7 +35,7 @@ router.route('/register').post(async (req, res) => {
     }
 });
 
-router.route('/login').post(async (req, res) => {
+router.post('/login', async (req, res) => {
     //Lets validate the data
     const schema = Joi.object({
         email: Joi.string().min(6).required().email(),
