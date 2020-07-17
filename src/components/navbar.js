@@ -25,13 +25,13 @@ class Navbar extends Component {
                             <Link to="/dashboard" className="nav-link">Blog</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/create" className="nav-link">Add</Link>
+                            <Link to="/create" className="nav-link">Create</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/lenguage" className="nav-link">Lenguage</Link>
+                            <Link to="/lenguage" className="nav-link">Lenguages</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/signup" className="nav-link">Add User</Link>
+                            <Link to="/signup" className="nav-link">Add Credentials</Link>
                         </li>
                         
                     </ul>

@@ -58,19 +58,12 @@ export default class ArticleDetails extends Component {
         })
     }
 
-    getDerivedStateFromProps() {
-        this.setState({
-            showTitle: <h6 className="text-dark text-center mt-3">hola</h6>
-                
-        })
-    }
-
     render() {
 
         return (
             <div className="wrapper container">
                 <div>
-                    <h6 className="text-dark text-center mt-3">{ this.state.title }</h6>
+                    <h3 className="text-dark text-center mt-3">{ this.state.title }</h3>
             
                     <div className="text-dark container card p-3" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
                         {this.state.description}

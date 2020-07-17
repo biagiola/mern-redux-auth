@@ -66,6 +66,7 @@ export default class ArticlesList extends Component {
         console.log('render, articles', this.state.articles)
         return (
             <div className="wrapper container mt-3">
+                <h3 className="text-dark">Articles</h3>
                 {
                     (this.state.articles.length) ? <div className="list-group mt-3">{ this.articleList() }</div> : <div className="text-dark"></div>
                 }

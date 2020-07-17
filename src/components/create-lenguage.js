@@ -52,7 +52,7 @@ export default class CreateUsers extends Component {
     render() {
         return (
             <div className="wrapper">
-                <h3 className="container mt-2">Add new lenguage</h3>
+                <h3 className="text-dark container mt-2">Add new lenguage</h3>
                 <form onSubmit={ this.onSubmit } className="container text-dark">
                     <div className='form-group'>
                         <label>Lenguage: </label>
@@ -72,11 +72,11 @@ export default class CreateUsers extends Component {
                             onSubmit={ this.onSubmitHandle }/>
                     </div>
                 </form>
-                <h3>Available languages</h3>
+                <h3 className="text-dark container">Available languages</h3>
                 {
                     this.state.lenguages.map( function(lenguage) {
                         return (
-                        <h5 key={lenguage}>{ lenguage }</h5>
+                        <span className="btn btn-danger" key={lenguage}>{ lenguage } </span>
                         )
                     })
                 }

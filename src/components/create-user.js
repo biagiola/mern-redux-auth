@@ -55,7 +55,8 @@ export default class newUser extends Component {
 
     render() {
         return (
-            <div className="wrapper container mt-5"> 
+            <div className="wrapper container"> 
+                <h3 className="text-dark mt-2">Add a new user</h3>
                 <form onSubmit={ this.onSubmit } className="form-group">
                     <input
                         id="fname" 
