@@ -3,7 +3,28 @@ let User = require('../models/user.model');
 const { registerValidation, loginValidation } = require('../../src/validation');
 const Joi = require('@hapi/joi');
 
-router.route('/register').post(async (req, res) => {
+router.post('/login', async (req, res) => {
+    //Lets validate the data
+    const schema = Joi.object({
+        email: Joi.string().min(6).required().email(),
+        password: Joi.string().min(6).required()
+    });
+    const { error } = schema.validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message)
+
+    User.findOne({ email: req.body.email })
+        .exec()
+        .then( response => {
+            console.log('user found, response: ', response)
+            res.status(200).send('Email was found')
+        })
+        .catch( err => {
+            res.status(404).send('User not found')
+        })
+
+});
+
+router.post('/register', async (req, res) => {
     //Validate the email
     const { error } = registerValidation(req.body);
     if (error) {
@@ -33,22 +54,6 @@ router.route('/register').post(async (req, res) => {
         console.log('auth.js ERROR');
         res.status(404).send(err);
     }
-});
-
-router.post('/login', async (req, res) => {
-    //Lets validate the data
-    const schema = Joi.object({
-        email: Joi.string().min(6).required().email(),
-        password: Joi.string().min(6).required()
-    });
-    const { error } = schema.validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message)
-
-    //Cheking if the email already exists
-    const user = await User.findOne({ email: req.body.email });
-    if(!user) return res.status(400).send('Email is not found');
-    res.send(user);
-
 });
 
 module.exports = router;
