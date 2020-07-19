@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { changeShowNavbar } from '../actions';
+import { changeShowNavbar, setUsername } from '../actions';
 
 class SignUp extends Component {
   constructor(props) {
@@ -35,14 +35,14 @@ class SignUp extends Component {
     e.preventDefault();
 
     const newUser = {
-    email: this.state.email,
-    password: this.state.password
+      email: this.state.email,
+      password: this.state.password
     }
 
     axios.post('http://localhost:5000/auth/login', newUser)
       .then(res => {
-        //alert('you are in, '+res.data.name);
         this.props.changeShowNavbar();
+        this.props.setUsername(res.data.response.name);
         console.log('this.props.showNavbar sigup.js', this.props.showNavbar);
         this.props.history.push('/dashboard')
       })
@@ -82,6 +82,7 @@ class SignUp extends Component {
 
 SignUp.propTypes = {
   changeShowNavbar: PropTypes.func,
+  setUsername: PropTypes.func,
   showNavbar: PropTypes.bool
 }
 
@@ -92,6 +93,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     changeShowNavbar: () => dispatch(changeShowNavbar()),
+    setUsername: name => dispatch(setUsername(name))
   } 
 }
 

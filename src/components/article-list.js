@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { changeShowNavbar, setUsername } from '../actions';
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
@@ -9,10 +12,11 @@ const Article = props => (
     </div>
 )
 
-export default class ArticlesList extends Component {
+class ArticlesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            username: '',
             articles: [],
             lenguages: [],
             lenguage: '',
@@ -44,6 +48,10 @@ export default class ArticlesList extends Component {
             })
             .catch( error => console.log(error) )
 
+        this.setState({
+            username: this.props.username
+        })
+        
         console.log('componentDidMount, articles', this.state.articles)
     }
 
@@ -66,7 +74,7 @@ export default class ArticlesList extends Component {
         console.log('render, articles', this.state.articles)
         return (
             <div className="wrapper container mt-3">
-                <h3 className="text-dark">Articles</h3>
+                <h3 className="text-dark">Welcome { this.props.username }</h3>
                 {
                     (this.state.articles.length) ? <div className="list-group mt-3">{ this.articleList() }</div> : <div className="text-dark"></div>
                 }
@@ -74,3 +82,13 @@ export default class ArticlesList extends Component {
         )
     }
 }
+
+ArticlesList.propTypes = {
+    setUsername: PropTypes.func,
+  }
+
+const mapStateToProps = state => ({
+    username: state.casa.username
+})
+
+export default connect(mapStateToProps, null)(ArticlesList)
