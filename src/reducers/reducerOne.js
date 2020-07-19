@@ -1,7 +1,8 @@
 const initialState = {
-    switchNavbar: true,
+    switchNavbar: false,
     logout: false,
     gone: false,
+    username: 'asdf'
 }
 
 export default function(state = initialState, action) {
@@ -12,10 +13,16 @@ export default function(state = initialState, action) {
                 ...state,
                 switchNavbar: !state.switchNavbar
             }
+        case 'SET_USER_NAME':
+            console.log('SET_USER_NAME')
+            return {
+                ...state,
+                username: action.payload
+            }
         case 'ARTICLES_GONE':
             return {
                 ...state,
-                gone: !state.gone
+                gone: true
             }            
         default:
             return state;
