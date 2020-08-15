@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
-import { changeShowNavbar } from '../actions';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { PropTypes } from 'prop-types'
+import { connect } from 'react-redux'
+import { changeShowNavbar } from '../actions'
 
 class SignUp extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             email: '',
             password: '',
             location: '*',
             registerMessage: ''
         }
-        this.onSubmit = this.onSubmit.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-        this.changePassword = this.changePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this)
+        this.changeEmail = this.changeEmail.bind(this)
+        this.changePassword = this.changePassword.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     changeEmail(e) {
@@ -41,13 +41,13 @@ class SignUp extends Component {
 
         axios.post('http://localhost:5000/auth/login', newUser)
             .then( res => {
-                //alert('you are in, '+res.data.name);
-                this.props.changeShowNavbar();
-                console.log('this.props.showNavbar sigup.js',this.props.showNavbar);
+                //alert('you are in, '+res.data.name)
+                this.props.changeShowNavbar()
+                console.log('this.props.showNavbar sigup.js',this.props.showNavbar)
                 this.props.history.push('/dashboard')
             })
             .catch( error => {
-                console.log(error);
+                console.log(error)
                 alert(error.response.data )}
             )
     }
