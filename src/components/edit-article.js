@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import axios from 'axios'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+import { Link } from 'react-router-dom'
 
 export default class EditArticle extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       lenguage: '',
       title: '',
@@ -15,12 +15,12 @@ export default class EditArticle extends Component {
       lenguages: []
     }
 
-    this.onChangeLenguage = this.onChangeLenguage.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeDuration = this.onChangeDuration.bind(this);
-    this.onChangeDate = this.onChangeDate.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeLenguage = this.onChangeLenguage.bind(this)
+    this.onChangeTitle = this.onChangeTitle.bind(this)
+    this.onChangeDescription = this.onChangeDescription.bind(this)
+    this.onChangeDuration = this.onChangeDuration.bind(this)
+    this.onChangeDate = this.onChangeDate.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
 
   }
 
@@ -79,7 +79,7 @@ export default class EditArticle extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     const article = {
       lenguage: this.state.lenguage,
@@ -92,10 +92,10 @@ export default class EditArticle extends Component {
     console.log(article);
 
     axios.post('http://localhost:5000/articles/update/' + this.props.match.params.id, article)
-      .then(res => console.log(res.data));
+      .then(res => console.log(res.data))
 
-    alert('Article updated');
-    this.props.history.push('/dashboard');
+    alert('Article updated')
+    this.props.history.push('/dashboard')
   }
 
   render() {
