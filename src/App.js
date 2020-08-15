@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Navbar from './components/navbar';
-import ArticlesList from './components/article-list';
-import ArticleDetails from './components/article-details';
-import CreateArticle from './components/create-article';
-import EditArticle from './components/edit-article';
-import DeleteArticle from './components/delete-article';
-import CreateLenguage from './components/create-lenguage';
-import CreateUser from './components/create-user';
-import SignUp from './components/sign-up';
+import Navbar from './components/navbar'
+import ArticlesList from './components/article-list'
+import ArticleDetails from './components/article-details'
+import CreateArticle from './components/create-article'
+import EditArticle from './components/edit-article'
+import DeleteArticle from './components/delete-article'
+import CreateLenguage from './components/create-lenguage'
+import CreateUser from './components/create-user'
+import SignUp from './components/sign-up'
 
 import {
   CSSTransition,
   TransitionGroup,
-} from 'react-transition-group';
+} from 'react-transition-group'
 
 class App extends Component {
 
