@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
+import React, { Component } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import axios from 'axios'
 
 export default class CreateArticle extends Component {
     constructor(props) {
@@ -14,11 +14,11 @@ export default class CreateArticle extends Component {
             date: new Date(),
             lenguages: []
         }
-        this.onChangeLenguage = this.onChangeLenguage.bind(this);
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeDate = this.onChangeDate.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeLenguage = this.onChangeLenguage.bind(this)
+        this.onChangeTitle = this.onChangeTitle.bind(this)
+        this.onChangeDescription = this.onChangeDescription.bind(this)
+        this.onChangeDate = this.onChangeDate.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
     
     componentDidMount() {
@@ -59,7 +59,7 @@ export default class CreateArticle extends Component {
     }
 
     onSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
 
         const article = {
             lenguage: this.state.lenguage,
@@ -69,12 +69,12 @@ export default class CreateArticle extends Component {
             date: this.state.date
         }
 
-        console.log(article);
+        console.log(article)
 
         axios.post('http://localhost:5000/articles/add', article)
-        .then( res => console.log( res.data ) );
+        .then( res => console.log( res.data ) )
 
-        this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard')
     }
 
     render() {
@@ -97,7 +97,7 @@ export default class CreateArticle extends Component {
                                         value={ lenguage }
                                     >
                                     { lenguage }
-                                </option>);
+                                </option>)
                             })
                         }
                         </select>
