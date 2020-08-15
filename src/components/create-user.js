@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from 'axios'
 import { browserHistory } from 'react-router'
 
 export default class newUser extends Component {
@@ -12,11 +12,11 @@ export default class newUser extends Component {
             location: '*',
             registerMessage: ''
         }
-        this.onSubmit = this.onSubmit.bind(this);
-        this.changeName = this.changeName.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-        this.changePassword = this.changePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this)
+        this.changeName = this.changeName.bind(this)
+        this.changeEmail = this.changeEmail.bind(this)
+        this.changePassword = this.changePassword.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     changeName(e) {
@@ -35,7 +35,7 @@ export default class newUser extends Component {
         });
     }
     onSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
 
         const newUser = {
             name: this.state.name,
@@ -48,7 +48,7 @@ export default class newUser extends Component {
                 alert(res.data.name + " user has been added :)")
                 this.props.history.push('/dashboard')})
             .catch( error => {
-                console.log(error);
+                console.log(error)
                 alert(error.response.data )}
             )
     }
