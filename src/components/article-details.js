@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default class ArticleDetails extends Component {
     constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       title: '',
       description: '',
@@ -15,7 +15,7 @@ export default class ArticleDetails extends Component {
       showTitle: '',
       id: '',
     }
-        this.deleteArticle = this.deleteArticle.bind(this);
+        this.deleteArticle = this.deleteArticle.bind(this)
     }
 
     componentDidMount() {
@@ -35,7 +35,7 @@ export default class ArticleDetails extends Component {
             }) 
         })
         .catch(function (error) {
-            console.log(error);
+            console.log(error)
         })
 
         // get all lenguages.
@@ -62,7 +62,7 @@ export default class ArticleDetails extends Component {
 
         return (
             <div className="wrapper container">
-                <div>
+                
                     <h3 className="text-dark text-center mt-3">{ this.state.title }</h3>
             
                     <div className="text-dark container card p-3" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
@@ -75,8 +75,7 @@ export default class ArticleDetails extends Component {
                         <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
                         <Link to={"/dashboard"} className="btn btn-primary">back</Link>
                     </div>
-                    
-                </div>
+                
             </div>
         )
     }
