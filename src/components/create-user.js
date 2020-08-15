@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router'
 
 export default class newUser extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             name: '',
             email: '',
