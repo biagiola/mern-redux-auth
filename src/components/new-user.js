@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class newUser extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             name: '',
             email: '',
             password: ''
         }
-        this.onSubmit = this.onSubmit.bind(this);
-        this.changeName = this.changeName.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-        this.changePassword = this.changePassword.bind(this);
+        this.onSubmit = this.onSubmit.bind(this)
+        this.changeName = this.changeName.bind(this)
+        this.changeEmail = this.changeEmail.bind(this)
+        this.changePassword = this.changePassword.bind(this)
     }
 
     changeName(e) {
@@ -39,9 +39,9 @@ export default class newUser extends Component {
             password: this.state.password
         }
         axios.post('http://localhost:5000/auth/register', newUser)
-            .then( res => console.log( res.data ));
+            .then( res => console.log( res.data ))
 
-        window.location = '/';
+        window.location = '/'
     }
 
     render() {
