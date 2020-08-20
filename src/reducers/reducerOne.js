@@ -2,7 +2,8 @@ const initialState = {
     switchNavbar: false,
     logout: false,
     gone: false,
-    username: 'asdf'
+    username: '',
+    authToken: null
 }
 
 export default function(state = initialState, action) {
@@ -13,6 +14,12 @@ export default function(state = initialState, action) {
                 ...state,
                 switchNavbar: !state.switchNavbar
             }
+        case 'SET_AUTH_TOKEN':
+        console.log('SET_AUTH_TOKEN')
+        return {
+            ...state,
+            authToken: action.payload
+        }
         case 'SET_USER_NAME':
             console.log('SET_USER_NAME')
             return {
