@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
-import { changeShowNavbar, setUsername } from '../actions';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { PropTypes } from 'prop-types'
+import { connect } from 'react-redux'
+import { setUsername, setAuthToken } from '../actions'
 
 class SignUp extends Component {
   constructor(props) {
@@ -41,8 +41,8 @@ class SignUp extends Component {
 
     axios.post('http://localhost:5000/auth/login', newUser)
       .then(res => {
-        this.props.changeShowNavbar();
         this.props.setUsername(res.data.name);
+        this.props.setAuthToken(res.data.token);
         console.log(res)
         console.log('this.props.showNavbar sigup.js', this.props.showNavbar);
         this.props.history.push('/dashboard')
@@ -82,19 +82,18 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  changeShowNavbar: PropTypes.func,
   setUsername: PropTypes.func,
-  showNavbar: PropTypes.bool
+  setAuthToken: PropTypes.func
 }
 
 const mapStateToProps = state => ({
-  showNavbar: state.casa.switchNavbar
+  showNavbar: state.casa.switchNavbar,
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeShowNavbar: () => dispatch(changeShowNavbar()),
-    setUsername: name => dispatch(setUsername(name))
+    setUsername: name => dispatch(setUsername(name)),
+    setAuthToken: token => dispatch(setAuthToken(token))
   } 
 }
 
