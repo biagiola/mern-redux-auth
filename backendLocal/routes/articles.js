@@ -1,8 +1,9 @@
 const router = require('express').Router();
 let Article = require('../models/article.model');
+const checkAuth = require('../middleware/check-auth');
 
 // read all the articles
-router.get('/', (req, res)  => {
+router.get('/', checkAuth, (req, res, next)  => {
     Article.find()
         .then( articles => res.json(articles) )
         .catch( err => res.status(400).json('Error ' + err) );
@@ -27,7 +28,9 @@ router.post('/add', (req, res) => {
     const lenguage = req.body.lenguage
     const title = req.body.title
     const description = req.body.description
-    const date = Date.parse(req.body.data)
+    const date = Date.parse(req.body.date)
+
+    console.log('post /add req: ', req.body)
 
     const newArticle = new Article({
         lenguage,
@@ -38,7 +41,7 @@ router.post('/add', (req, res) => {
 
     newArticle.save()
         .then( () => res.json('Article added!'))
-        .catch( () => res.status(400).json( 'Error: ' + err ))
+        .catch( (err) => res.status(400).json( 'Error: ' + err ))
 })
 
 // update an article

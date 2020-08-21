@@ -5,11 +5,7 @@ const Joi = require('@hapi/joi');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-router.get('/hola', (req, res) => {
-  return res.status(200).send('funcionó')
-})
-
-router.post('/login', async (req, res) => {
+router.post('/login', (req, res) => {
   //Lets validate the data
   const schema = Joi.object({
       email: Joi.string().min(6).required().email(),
