@@ -44,7 +44,6 @@ class SignUp extends Component {
         this.props.setUsername(res.data.name);
         this.props.setAuthToken(res.data.token);
         console.log(res)
-        console.log('this.props.showNavbar sigup.js', this.props.showNavbar);
         this.props.history.push('/dashboard')
       })
       .catch(error => {
