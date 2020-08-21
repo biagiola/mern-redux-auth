@@ -10,15 +10,9 @@ export default class CreateArticle extends Component {
             lenguage: '',
             title: '',
             description: '',
-            duration: 0,
             date: new Date(),
             lenguages: []
         }
-        this.onChangeLenguage = this.onChangeLenguage.bind(this)
-        this.onChangeTitle = this.onChangeTitle.bind(this)
-        this.onChangeDescription = this.onChangeDescription.bind(this)
-        this.onChangeDate = this.onChangeDate.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
     }
     
     componentDidMount() {
@@ -34,47 +28,47 @@ export default class CreateArticle extends Component {
         ).catch( error => console.log(error) )
     }
 
-    onChangeLenguage(e) {
+    onChangeLenguage = (e) => {
         this.setState({
             lenguage: e.target.value
         })
     }
 
-    onChangeTitle(e) {
+    onChangeTitle = (e) => {
         this.setState({
             title: e.target.value
         })
     }
 
-    onChangeDescription(e) {
+    onChangeDescription = (e) => {
         this.setState({
             description: e.target.value
         })
     }
 
-    onChangeDate(e) {
+    onChangeDate = (date) => {
         this.setState({
-            date: e.target.value
+          date: date
         })
     }
 
-    onSubmit(e) {
-        e.preventDefault()
+    onSubmit = (e) => {
+        e.preventDefault();
 
         const article = {
             lenguage: this.state.lenguage,
             title: this.state.title,
             description: this.state.description,
-            duration: this.state.duration,
             date: this.state.date
         }
 
-        console.log(article)
+        console.log(article);
 
         axios.post('http://localhost:5000/articles/add', article)
-        .then( res => console.log( res.data ) )
+        .then( res => console.log( 'respuesta ',res.data ) )
+        .catch( err => console.log( err ));
 
-        this.props.history.push('/dashboard')
+        this.props.history.push('/dashboard');
     }
 
     render() {
@@ -97,7 +91,7 @@ export default class CreateArticle extends Component {
                                         value={ lenguage }
                                     >
                                     { lenguage }
-                                </option>)
+                                </option>);
                             })
                         }
                         </select>
@@ -133,7 +127,10 @@ export default class CreateArticle extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create Exercise Log" className="btn btn-primary"/>
+                        <input 
+                            type="submit" 
+                            className="btn btn-primary"
+                            value="Create" />
                     </div>
                 </form>
             </div>
