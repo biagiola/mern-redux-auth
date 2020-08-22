@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
 
 class SignUp extends Component {
     constructor(props){
@@ -78,19 +76,4 @@ class SignUp extends Component {
     }
 }
 
-SignUp.propTypes = {
-    changeShowNavbar: PropTypes.func,
-    showNavbar: PropTypes.bool
-}
-
-const mapStateToProps = state => ({
-    showNavbar: state.casa.switchNavbar
-})
-
-const mapDispatchToProps = dispatch => {
-    return {
-        changeShowNavbar: () => dispatch(changeShowNavbar()),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;
