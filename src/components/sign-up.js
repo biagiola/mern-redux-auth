@@ -45,7 +45,7 @@ class SignUp extends Component {
             })
             .catch( error => {
                 console.log(error)
-                alert(error.response.data )}
+                //alert(error.response.data )}
             )
     }
 
