@@ -23,6 +23,34 @@
     transition: opacity 150ms linear;
 }
 
+a {
+  color: black;
+}
+
+a:hover {
+  color: white;
+}
+
+.text-hover:hover {
+  color: white;
+}
+
+* {
+  color: black
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #00b3db;
+  border-color: #285e8e; /*set the color you want here*/
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #00b3db;
+  border-color: #285e8e; /*set the color you want here*/
+}
+
 main {
   padding-top: 1.5rem;
 }
