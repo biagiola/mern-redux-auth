@@ -1,23 +1,20 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
-import { changeShowNavbar } from '../actions'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+
+import { setAuthToken } from '../actions';
 
 class Navbar extends Component {
-    constructor(props) {
-        super(props)
-        this.handleLogOut = this.handleLogOut.bind(this)
-    }
-
-    handleLogOut() {
-        console.log('handleout navbar')
-        this.props.changeShowNavbar()
+    
+    handleLogOut = () => {
+        this.props.setAuthToken(null)
     }
  
     render() {
-        return (
+
+        const show = this.props.authToken !== null ?
             <nav className="navbar navbar-dark bg-dark navbar-expand-sm">
                 <div className="collpase navbar-collapse">
                     <ul className="navbar-nav mr-auto">
@@ -42,18 +39,29 @@ class Navbar extends Component {
                     </ul> }
                 </div>
             </nav>
+        :
+            ''
+
+        return (
+            <div>
+                { show }
+            </div>
         );
     }
 }
 
 Navbar.propTypes = {
-    changeShowNavbar: PropTypes.func
+  changeShowNavbar: PropTypes.func
 }
+
+const mapStateToProps = state => ({
+  authToken: state.casa.authToken
+})
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeShowNavbar: () => dispatch(changeShowNavbar())
+        setAuthToken: (nullToken) => dispatch(setAuthToken(nullToken))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
