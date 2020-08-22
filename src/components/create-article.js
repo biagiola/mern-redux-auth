@@ -28,32 +28,32 @@ export default class CreateArticle extends Component {
         ).catch( error => console.log(error) )
     }
 
-    onChangeLenguage = (e) => {
+    onChangeLenguage = e => {
         this.setState({
             lenguage: e.target.value
         })
     }
 
-    onChangeTitle = (e) => {
+    onChangeTitle = e => {
         this.setState({
             title: e.target.value
         })
     }
 
-    onChangeDescription = (e) => {
+    onChangeDescription = e => {
         this.setState({
             description: e.target.value
         })
     }
 
-    onChangeDate = (date) => {
+    onChangeDate = date => {
         this.setState({
           date: date
         })
     }
 
     onSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const article = {
             lenguage: this.state.lenguage,
@@ -62,13 +62,11 @@ export default class CreateArticle extends Component {
             date: this.state.date
         }
 
-        console.log(article);
-
         axios.post('http://localhost:5000/articles/add', article)
         .then( res => console.log( 'respuesta ',res.data ) )
-        .catch( err => console.log( err ));
+        .catch( err => console.log( err ))
 
-        this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard')
     }
 
     render() {

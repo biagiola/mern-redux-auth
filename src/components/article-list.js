@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { PropTypes } from 'prop-types'
+
 import { connect } from 'react-redux'
-//import { setUsername } from '../actions'
+import { PropTypes } from 'prop-types'
+
+import axios from 'axios'
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
@@ -55,8 +56,6 @@ class ArticlesList extends Component {
         this.setState({
             username: this.props.username
         })
-        
-        console.log('componentDidMount, articles', this.state.articles)
     }
 
     onChangeLenguage = (e) => {
@@ -67,11 +66,13 @@ class ArticlesList extends Component {
     }
 
     articleList() {
-        console.log('articleList')
-
         return (this.state.articles.length) 
         ? this.state.articles.map( currentarticle => {
-            return <Article article={ currentarticle } deleteArticle={ this.deleteArticle } key={ currentarticle._id } />;
+            return <Article 
+                        article={ currentarticle } 
+                        deleteArticle={ this.deleteArticle } 
+                        key={ currentarticle._id } 
+                    />;
         }) 
         : 
         <Link 
@@ -86,7 +87,7 @@ class ArticlesList extends Component {
             <div className="wrapper container mt-3">
                 <h3 className="text-dark">Welcome { this.props.username }</h3>
                 {
-                    (this.state.articles.length) ? 
+                    this.state.articles.length ? 
                         <div className="list-group mt-3">{ this.articleList() }</div> 
                         : 
                         <div className="text-dark"></div>

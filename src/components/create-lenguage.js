@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class CreateUsers extends Component {
     constructor(props) {
@@ -8,9 +8,9 @@ export default class CreateUsers extends Component {
             lenguage: '',
             lenguages: []
         }
-        this.onChangeLenguage = this.onChangeLenguage.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-        this.onSubmitHandle = this.onSubmitHandle.bind(this)
+        this.onChangeLenguage = this.onChangeLenguage.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitHandle = this.onSubmitHandle.bind(this);
     }
 
     componentDidMount(){
@@ -31,7 +31,7 @@ export default class CreateUsers extends Component {
     } 
 
     onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         const lenguage = {
             lenguage: this.state.lenguage,
@@ -45,8 +45,8 @@ export default class CreateUsers extends Component {
     }
 
     onSubmitHandle(e){
-        e.preventDefault()
-        console.log('testing')
+        e.preventDefault();
+        console.log('testing');
     }   
 
     render() {
