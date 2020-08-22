@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
-import { changeShowNavbar } from '../actions'
 
 class SignUp extends Component {
     constructor(props){
