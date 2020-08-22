@@ -43,7 +43,7 @@ export default class App extends Component {
                             <Route path="/edit/:id" component={ EditArticle } />
                             <Route path="/deleted" component={ DeleteArticle } />
                             <Route path="/lenguage" component={ CreateLenguage } />
-                            <Route path="/signup" component={ CreateUser } />
+                            {/*<Route path="/signup" component={ CreateUser } />*/}
                             <Route path="*" component={ () => "404 not found" } />
                           </Switch>
                           </CSSTransition>
