@@ -78,9 +78,11 @@ app.use((req, res, next) => {
 const articlesRouter = require('./routes/articles');
 const lenguageRouter = require('./routes/lenguages');
 const authRouter = require('./routes/auth');
+const bitcoin = require('./routes/bitcoin');
 app.use('/articles', articlesRouter);
 app.use('/lenguages', lenguageRouter);
 app.use('/auth', authRouter);
+app.use('/bitcoin', bitcoin);
 
 // express is listening the port
 app.listen(port, () => 
