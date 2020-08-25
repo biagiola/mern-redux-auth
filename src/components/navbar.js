@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
 
-import { setAuthToken } from '../actions';
+import { setAuthToken } from '../actions'
 
 class Navbar extends Component {
     
@@ -29,6 +29,12 @@ class Navbar extends Component {
                         </li>
                         <li className="navbar-item">
                             <Link to="/signup" className="nav-link">Add Credentials</Link>
+                        </li>
+                        <li className="navbar-item">
+                            <Link to="/bitcoin" className="nav-link">BitCoin</Link>
+                        </li>
+                        <li className="navbar-item">
+                            <Link to="/weather" className="nav-link">Weather</Link>
                         </li>
                         
                     </ul>
