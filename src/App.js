@@ -12,8 +12,9 @@ import CreateArticle from './components/create-article'
 import EditArticle from './components/edit-article'
 import DeleteArticle from './components/delete-article'
 import CreateLenguage from './components/create-lenguage'
-//import CreateUser from './components/create-user'
+import CreateUser from './components/create-user'
 import Bitcoin from './components/bitcoin-chart'
+import Weather from './components/weather'
 
 import {
   CSSTransition,
@@ -45,7 +46,8 @@ export default class App extends Component {
                     <Route path="/deleted" component={ DeleteArticle } />
                     <Route path="/lenguage" component={ CreateLenguage } />
                     <Route path="/bitcoin" component={ Bitcoin } />
-                    {/*<Route path="/signup" component={ CreateUser } />*/}
+                    <Route path="/weather" component={ Weather } />
+                    <Route path="/signup" component={ CreateUser } />
                     <Route path="*" component={ () => "404 not found" } />
                   </Switch>
                   </CSSTransition>
