@@ -9,7 +9,8 @@ const BitcoinChart = () => {
 
   const chart = () => {
     let empSal = [];
-    let empAge = [];
+    let empDate = [];
+    
     axios
       .get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=10")
       .then(res => {
@@ -19,21 +20,15 @@ const BitcoinChart = () => {
 
             // multiplied by 1000 so that the argument is in milliseconds, not seconds.
             var date = new Date(element.time * 1000);
-            
-            console.log('date', date);
-            console.log('date month', date.getMonth());
-            console.log('date date', date.getDate());
-
-            const fecha = date.getDate() + date.getMonth()
-
-            empAge.push(date.getDate() + date.getMonth())
+            console.log('getDate ', date.getDate())
+            empDate.push(date.getDate() )
         });
-        
+
         setChartData({
-          labels: empAge,
+          labels: empDate,
           datasets: [
             {
-              label: "bitcoin price",
+              label: "bitcoin price $",
               data: empSal,
               backgroundColor: ["rgba(249, 241, 0, 0.7)"],
               borderWidth: 1
@@ -53,12 +48,12 @@ const BitcoinChart = () => {
   return (
     <div className="App">
       <h1>BitCoin Chart</h1>
-      <div style={{ width: "500px", hight: "500px" }}>
+      <div style={{ width: "800px", hight: "800px", margin: "0px auto" }}>
         <Line
           data={chartData}
           options={{
             responsive: true,
-            title: { text: "DAILY SCALE", display: true },
+            title: { text: "Last 10 days" , display: true },
             scales: {
               yAxes: [
                 {
