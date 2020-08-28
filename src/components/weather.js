@@ -6,7 +6,9 @@ export default class weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            temperature: null
+            temperature: null,
+            humidity: null,
+            wind:  null
         }
     }
 
@@ -22,7 +24,7 @@ export default class weather extends Component {
             },
             "params":{
               "fields":[
-                "temp","humidity"],
+                "temp","humidity","wind_speed"],
               "unit_system":"si",
               "lat":"-25.247200",
               "lon":"-57.535661"
@@ -32,6 +34,7 @@ export default class weather extends Component {
             this.setState({
                 temperature: response.data[0].temp,
                 humidity: response.data[0].humidity,
+                wind: response.data[0].wind_speed
             })
         })
         .catch((error)=>{
@@ -45,7 +48,7 @@ export default class weather extends Component {
 
         const value = this.state.temperature !== null 
         ? 
-        <div>
+        <div className="card">
             <div>
                 Temperature:
                     {" "}  
@@ -57,6 +60,12 @@ export default class weather extends Component {
                     {" "}
                     { this.state.humidity.value }
                     { this.state.humidity.units }
+            </div>
+            <div>
+                wind:
+                    {" "}
+                    { this.state.wind.value * 3,6 }
+                    km/h
             </div>
         </div>
         : <div>loading...</div>
