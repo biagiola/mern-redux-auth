@@ -78,11 +78,9 @@ app.use((req, res, next) => {
 const articlesRouter = require('./routes/articles');
 const lenguageRouter = require('./routes/lenguages');
 const authRouter = require('./routes/auth');
-const weather = require('./routes/weatherApiCall');
 app.use('/articles', articlesRouter);
 app.use('/lenguages', lenguageRouter);
 app.use('/auth', authRouter);
-app.use('/weather', weather);
 
 // express is listening the port
 app.listen(port, () => 
