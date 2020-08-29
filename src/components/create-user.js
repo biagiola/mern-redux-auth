@@ -1,48 +1,64 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-//import { browserHistory } from 'react-router'
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
-export default class newUser extends Component {
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
+
+import axios from 'axios'
+
+class newUser extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             name: '',
             email: '',
             password: '',
             location: '*',
-            registerMessage: ''
+            registerMessage: '',
+            image: null
         }
-        this.changeName = this.changeName.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-        this.changePassword = this.changePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    changeName(e) {
+    changeName = e => {
         this.setState({
             name: e.target.value
         });
     }
-    changeEmail(e) {
+
+    changeEmail = e => {
         this.setState({
             email: e.target.value
         });
     }
-    changePassword(e) {
+
+    changePassword = e => {
         this.setState({
             password: e.target.value
         });
     }
-    onSubmit(e) {
+
+    changeImage = e => {
+        //console.log(e)
+        this.setState({ 
+            image: e.target.files[0] 
+        })
+    }
+
+    onSubmit = e => {
         e.preventDefault();
 
-        const newUser = {
+        /*const newUser = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
-        }
+        }*/
+        let formData = new FormData();
+        formData.append('name', this.state.name);
+        formData.append('email', this.state.email);
+        formData.append('password', this.state.password);
+        formData.append('productImage', this.state.image,this.state.image.name);
 
-        axios.post('http://localhost:5000/auth/register', newUser)
+        axios.post('http://localhost:5000/auth/register', formData)
             .then( res => {
                 alert(res.data.name + " user has been added :)")
                 this.props.history.push('/dashboard')})
@@ -53,38 +69,66 @@ export default class newUser extends Component {
     }
 
     render() {
+
+        const value = this.props.moveContentValue ?
+        "60px" :  "250px"
+
+        const main = this.props.authToken !== null ?
+        <div>
+            <h3 className="text-dark mt-2">Add a new user</h3>
+            <form onSubmit={ this.onSubmit } className="form-group">
+                <input
+                    id="fname" 
+                    type="text"
+                    className="form-control"
+                    placeholder="enter your name..."
+                    value={ this.state.name } 
+                    onChange={ this.changeName } 
+                    />
+                    <br/>
+                <input 
+                    id="femail"
+                    type="text"
+                    className="form-control"
+                    placeholder="enter your email..."
+                    value={ this.state.email } 
+                    onChange={ this.changeEmail } />
+                    <br/>
+                <input 
+                    id="fpwd"
+                    type="text" 
+                    className="form-control"
+                    placeholder="enter your password..."
+                    value={ this.state.password }
+                    onChange={ this.changePassword } />
+                    <br/>
+                <input 
+                    type="file" 
+                    onChange={ this.changeImage } />
+                    <br/>
+                <button className="btn btn-primary">Send</button>
+            </form>
+        </div>
+        :
+        <div>
+            <Redirect to="/" />
+        </div>
+
         return (
-            <div className="wrapper container"> 
-                <h3 className="text-dark mt-2">Add a new user</h3>
-                <form onSubmit={ this.onSubmit } className="form-group">
-                    <input
-                        id="fname" 
-                        type="text"
-                        className="form-control"
-                        placeholder="enter your name..."
-                        value={ this.state.name } 
-                        onChange={ this.changeName } 
-                        />
-                        <br/>
-                    <input 
-                        id="femail"
-                        type="text"
-                        className="form-control"
-                        placeholder="enter your email..."
-                        value={ this.state.email } 
-                        onChange={ this.changeEmail } />
-                        <br/>
-                    <input 
-                        id="fpwd"
-                        type="text" 
-                        className="form-control"
-                        placeholder="enter your password..."
-                        value={ this.state.password }
-                        onChange={ this.changePassword } />
-                        <br/>
-                    <button className="btn btn-primary">Send</button>
-                </form>
+            <div className="wrapper container" style={{ marginLeft: value }}> 
+                { main }
             </div>
         )
     }
 }
+
+newUser.propTypes = {
+  authToken: PropTypes.string
+}
+
+const mapStateToProps = state => ({
+  authToken: state.casa.authToken,  
+  moveContentValue: state.casa.moveContentValue
+})
+
+export default connect(mapStateToProps, null)(newUser)
