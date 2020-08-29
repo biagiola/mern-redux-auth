@@ -14,9 +14,9 @@ export const setAuthToken = token => dispatch => {
     })
 }
 
-export const articlesGone = () => dispatch => {
-    console.log('actions articlesGone')
+export const moveContent = () => dispatch => {
     dispatch({
-        type: 'ARTICLES_GONE'
+        type: 'MOVE_CONTENT'
     });
 }
+
