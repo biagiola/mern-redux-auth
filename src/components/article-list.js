@@ -8,10 +8,9 @@ import axios from 'axios'
 
 // this props comes from the state, that is map in articleList() 
 const Article = props => (
-    <div>
+    <div className="card">
         <Link 
             to={ '/details/' + props.article._id } 
-            className=""
         >{ props.article.title } - { props.article.lenguage }</Link>
     </div>
 )
