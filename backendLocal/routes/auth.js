@@ -1,9 +1,40 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+
 const { registerValidation, loginValidation } = require('../../src/validation');
+
 const Joi = require('@hapi/joi');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    console.log('store multer, file ', file)
+    cb(null, file.originalname)
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+
 
 router.post('/login', (req, res) => {
   //Lets validate the data
@@ -72,7 +103,7 @@ router.post('/login', (req, res) => {
     */
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', upload.single('productImage'), async (req, res) => {
     //Validate the email
     const { error } = registerValidation(req.body);
     if (error) {
@@ -87,12 +118,6 @@ router.post('/register', async (req, res) => {
         return res.status(403).send('Email already exists');
     }
 
-    const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    });
-
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
           return res.status(500).json({
@@ -102,7 +127,8 @@ router.post('/register', async (req, res) => {
           const user = new User({
             name: req.body.name,
             email: req.body.email,
-            password: hash
+            password: hash,
+            productImage: req.file.path // req.file is from multer
           });
           user
             .save()
