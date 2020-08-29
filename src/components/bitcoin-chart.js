@@ -46,9 +46,9 @@ const BitcoinChart = () => {
     chart();
   }, []);
   return (
-    <div className="App">
+    <div className="content">
       <h1>BitCoin Chart</h1>
-      <div style={{ width: "800px", hight: "800px", margin: "0px auto" }}>
+      <div className="bitcoinChart">
         <Line
           data={chartData}
           options={{

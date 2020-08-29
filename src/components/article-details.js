@@ -5,17 +5,16 @@ import { Link } from 'react-router-dom';
 export default class ArticleDetails extends Component {
     constructor(props) {
     super(props);
-    this.state = {
-      title: '',
-      description: '',
-      duration: 0,
-      date: new Date(),
-      lenguages: [],
-      articles: [],
-      showTitle: '',
-      id: '',
-    }
-        this.deleteArticle = this.deleteArticle.bind(this);
+        this.state = {
+        title: '',
+        description: '',
+        duration: 0,
+        date: new Date(),
+        lenguages: [],
+        articles: [],
+        showTitle: '',
+        id: '',
+        }
     }
 
     componentDidMount() {
@@ -49,7 +48,7 @@ export default class ArticleDetails extends Component {
         }).catch( error => console.log(error) )
     }
 
-    deleteArticle( id ) {
+    deleteArticle = id => {
         axios.delete( 'http://localhost:5000/articles/' + id )
             .catch( res => console.log( res.data ) );
         
@@ -63,17 +62,17 @@ export default class ArticleDetails extends Component {
         return (
             <div className="wrapper container">
                 <div>
-                    <h3 className="text-dark text-center mt-3">{ this.state.title }</h3>
+                    <h3 className="text-center">{ this.state.title }</h3>
             
-                    <div className="text-dark container card p-3" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
+                    <div className="container" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
                         {this.state.description}
                         <small style={ {'padding': '50px 0px 0px', } }>Written at: { this.state.date.toString().substr(0,10) }</small>
                     </div>
 
                     <div style={{ 'marginTop': '2rem'}}>
-                        <Link to={ '/edit/' + this.props.match.params.id } className="btn btn-primary">edit</Link> 
-                        <Link to={"/deleted"} className="btn btn-primary" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
-                        <Link to={"/dashboard"} className="btn btn-primary">back</Link>
+                        <Link to={ '/edit/' + this.props.match.params.id } className="btn">edit</Link> 
+                        <Link to={"/deleted"} className="btn" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
+                        <Link to={"/dashboard"} className="btn">back</Link>
                     </div>
                     
                 </div>

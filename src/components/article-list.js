@@ -11,7 +11,7 @@ const Article = props => (
     <div>
         <Link 
             to={ '/details/' + props.article._id } 
-            className="list-group-item list-group-item-secondary btn btn-primary "
+            className=""
         >{ props.article.title } - { props.article.lenguage }</Link>
     </div>
 )
@@ -66,31 +66,36 @@ class ArticlesList extends Component {
     }
 
     articleList() {
-        return (this.state.articles.length) 
-        ? this.state.articles.map( currentarticle => {
+        return this.state.articles.length 
+        ? this.state.articles.map
+            (currentarticle => {
             return <Article 
                         article={ currentarticle } 
                         deleteArticle={ this.deleteArticle } 
                         key={ currentarticle._id } 
-                    />;
-        }) 
-        : 
-        <Link 
+                    />
+                }
+            )
+        :<Link 
             to={ '/create' } 
-            className="list-group-item list-group-item-secondary btn btn-primary "
+            className=""
         >Add a new one</Link>
     }
     
     render() {
-        console.log('render, articles', this.state.articles)
+        console.log('render, this.props.moveContentValue', this.props.moveContentValue)
+
+        const value = this.props.moveContentValue ?
+        "60px" :  "250px"
+
         return (
-            <div className="wrapper container mt-3">
+            <div className="wrapper content" style={{ marginLeft: value }}>
                 <h3 className="text-dark">Welcome { this.props.username }</h3>
                 {
                     this.state.articles.length ? 
-                        <div className="list-group mt-3">{ this.articleList() }</div> 
+                        <div className="list-group">{ this.articleList() }</div> 
                         : 
-                        <div className="text-dark"></div>
+                        <div></div>
                 }
             </div>
         )
@@ -104,7 +109,8 @@ ArticlesList.propTypes = {
 
 const mapStateToProps = state => ({
   username: state.casa.username,
-  authToken: state.casa.authToken
+  authToken: state.casa.authToken,
+  moveContentValue: state.casa.moveContentValue
 })
 
 export default connect(mapStateToProps, null)(ArticlesList)

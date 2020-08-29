@@ -12,26 +12,22 @@ class SignUp extends Component {
     password: '',
     location: '*',
     registerMessage: ''
-  }
-    this.onSubmit = this.onSubmit.bind(this);
-    this.changeEmail = this.changeEmail.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    }
   }
 
-  changeEmail(e) {
+  changeEmail = (e) => {
     this.setState({
     email: e.target.value
     });
   }
 
-  changePassword(e) {
+  changePassword = (e) => {
     this.setState({
     password: e.target.value
     });
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const newUser = {
@@ -55,7 +51,7 @@ class SignUp extends Component {
 
   render() {
     return (
-    <div className="wrapper container mt-5">
+    <div className="wrapper container">
       <form onSubmit={this.onSubmit} className="form-group">
       <input
         id="femail"
@@ -73,7 +69,7 @@ class SignUp extends Component {
         value={this.state.password}
         onChange={this.changePassword} />
       <br />
-      <button className="btn btn-primary">Login</button>
+      <button className="btn">Login</button>
       </form>
     </div>
     )

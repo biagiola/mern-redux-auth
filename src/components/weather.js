@@ -48,7 +48,7 @@ export default class weather extends Component {
 
         const value = this.state.temperature !== null 
         ? 
-        <div className="card">
+        <div className="">
             <div>
                 Temperature:
                     {" "}  
@@ -71,7 +71,7 @@ export default class weather extends Component {
         : <div>loading...</div>
 
         return (
-            <div>
+            <div className="content">
                 <h1>Weather</h1>
                 { value }
             </div>
