@@ -14,43 +14,37 @@ class Navbar extends Component {
  
     render() {
 
-        const show = this.props.authToken !== null ?
-            <nav className="navbar navbar-dark bg-dark navbar-expand-sm">
-                <div className="collpase navbar-collapse">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="navbar-item">
-                            <Link to="/dashboard" className="nav-link">Blog</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/create" className="nav-link">Create</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/lenguage" className="nav-link">Lenguages</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/signup" className="nav-link">Add Credentials</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/bitcoin" className="nav-link">BitCoin</Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/weather" className="nav-link">Weather</Link>
-                        </li>
-                        
-                    </ul>
-                    { !this.props.showNavbar  && <ul className="navbar-nav left">
-                        <li>
-                            <Link to="/" className="nav-link" onClick={ this.handleLogOut }>Log out</Link>
-                        </li>
-                    </ul> }
-                </div>
-            </nav>
+        const show = this.props.authToken === null ?
+        <header>
+            <label htmlFor="check">
+                <i className="fas fa-bars" id="sidebar_btn"></i>
+            </label>
+            <div className="left_area">
+                <h3>Coding <span>Snow</span></h3>
+            </div>
+            <div className="right_area">
+                <a href="#" className="logout_btn">Logout</a>
+            </div>
+        </header>
         :
-            ''
+        ''
 
         return (
             <div>
+                <input type="checkbox" id="check"/>    
                 { show }
+                <div className="sidebar">
+            <div className="profile_info">
+                <img src="1.png" className="profile_image" alt="" />
+                <h4>Jessica</h4>
+            </div>
+            <Link to={'/dashboard'}><i className="fas fa-desktop"></i><span>Dashboard</span></Link>
+            <Link to={'/create'}><i className="fas fa-cogs"></i><span>Create</span></Link>
+            <Link to={'/bitcoin'}><i className="fas fa-dollar-sign"></i><span>Bitcoin</span></Link>
+            <Link to={'/weather'}><i className="fas fa-sun"></i><span>Weather</span></Link>
+            <Link to={'/lenguage'}><i className="fas fa-info-circle"></i><span>Lenguage</span></Link>
+            <Link to={'/signup'}><i className="fas fa-sliders-h"></i><span>Sign Up</span></Link>
+        </div>
             </div>
         );
     }
@@ -66,7 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        setAuthToken: (nullToken) => dispatch(setAuthToken(nullToken))
+        setAuthToken: nullToken => dispatch(setAuthToken(nullToken))
     }
 }
 
