@@ -51,7 +51,7 @@ class ArticlesList extends Component {
         .then( res => {
             this.setState({ articles: res.data })
         })
-        .catch( error => console.log(error) )
+        .catch( error => this.props.history.push('/') )
 
         this.setState({
             username: this.props.username
@@ -83,20 +83,26 @@ class ArticlesList extends Component {
     }
     
     render() {
-        console.log('render, this.props.moveContentValue', this.props.moveContentValue)
+
+        const main = this.props.authToken !== null ?
+        <div className="wrapper content" style={{ marginLeft: value }}>
+            <h3 className="text-dark">Welcome { this.props.username }</h3>
+            {
+                this.state.articles.length ? 
+                    <div className="list-group">{ this.articleList() }</div> 
+                    : 
+                    <div></div>
+            }
+        </div>
+        :
+        ''
 
         const value = this.props.moveContentValue ?
         "60px" :  "250px"
 
         return (
             <div className="wrapper content" style={{ marginLeft: value }}>
-                <h3 className="text-dark">Welcome { this.props.username }</h3>
-                {
-                    this.state.articles.length ? 
-                        <div className="list-group">{ this.articleList() }</div> 
-                        : 
-                        <div></div>
-                }
+                { main }
             </div>
         )
     }
