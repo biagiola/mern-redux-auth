@@ -84,9 +84,12 @@ class ArticlesList extends Component {
     
     render() {
 
+        const value = this.props.moveContentValue ?
+        "60px" :  "250px"
+
         const main = this.props.authToken !== null ?
-        <div className="wrapper content" style={{ marginLeft: value }}>
-            <h3 className="text-dark">Welcome { this.props.username }</h3>
+        <div>
+            <h3 className="text-dark">Welcome</h3>
             {
                 this.state.articles.length ? 
                     <div className="list-group">{ this.articleList() }</div> 
@@ -97,9 +100,6 @@ class ArticlesList extends Component {
         :
         ''
 
-        const value = this.props.moveContentValue ?
-        "60px" :  "250px"
-
         return (
             <div className="wrapper content" style={{ marginLeft: value }}>
                 { main }
@@ -109,12 +109,10 @@ class ArticlesList extends Component {
 }
 
 ArticlesList.propTypes = {
-  username: PropTypes.string,
   authToken: PropTypes.string
 }
 
 const mapStateToProps = state => ({
-  username: state.casa.username,
   authToken: state.casa.authToken,
   moveContentValue: state.casa.moveContentValue
 })

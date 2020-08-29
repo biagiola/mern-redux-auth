@@ -43,7 +43,7 @@ class Navbar extends Component {
         <div className="sidebar">
             <div className="profile_info">
                 <img src="1.png" className="profile_image" alt="" />
-                <h4>Jessica</h4>
+                <h4>{ this.props.username }</h4>
             </div>
             <Link to={'/dashboard'}><i className="fas fa-home"></i><span>Dashboard</span></Link>
             <Link to={'/create'}><i className="fas fa-pencil-alt"></i><span>Create</span></Link>
@@ -66,11 +66,14 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   changeShowNavbar: PropTypes.func,
-  moveContent: PropTypes.func
+  moveContent: PropTypes.func,
+  username: PropTypes.func,
+  
 }
 
 const mapStateToProps = state => ({
-  authToken: state.casa.authToken
+  authToken: state.casa.authToken,
+  username: state.casa.username,
 })
 
 const mapDispatchToProps = dispatch => {

@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 
-export default class ArticleDetails extends Component {
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
+
+import axios from 'axios'
+
+class ArticleDetails extends Component {
     constructor(props) {
-    super(props);
+    super(props)
         this.state = {
         title: '',
         description: '',
@@ -50,7 +54,7 @@ export default class ArticleDetails extends Component {
 
     deleteArticle = id => {
         axios.delete( 'http://localhost:5000/articles/' + id )
-            .catch( res => console.log( res.data ) );
+            .catch( res => console.log( res.data ) )
         
         this.setState({
             articles: this.state.articles.filter( el => el._id !== id )  
@@ -58,25 +62,45 @@ export default class ArticleDetails extends Component {
     }
 
     render() {
+        const main = this.props.authToken !== null ?
+        <div>
+            <h3 className="text-center">{ this.state.title }</h3>
+    
+            <div className="container" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
+                {this.state.description}
+                <small style={ {'padding': '50px 0px 0px', } }>Written at: { this.state.date.toString().substr(0,10) }</small>
+            </div>
+
+            <div style={{ 'marginTop': '2rem'}}>
+                <Link to={ '/edit/' + this.props.match.params.id } className="btn">edit</Link> 
+                <Link to={"/deleted"} className="btn" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
+                <Link to={"/dashboard"} className="btn">back</Link>
+            </div>
+            
+        </div>
+        :
+        <div>
+            <Redirect to="/" />
+        </div>
+
 
         return (
-            <div className="wrapper container">
-                <div>
-                    <h3 className="text-center">{ this.state.title }</h3>
-            
-                    <div className="container" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
-                        {this.state.description}
-                        <small style={ {'padding': '50px 0px 0px', } }>Written at: { this.state.date.toString().substr(0,10) }</small>
-                    </div>
-
-                    <div style={{ 'marginTop': '2rem'}}>
-                        <Link to={ '/edit/' + this.props.match.params.id } className="btn">edit</Link> 
-                        <Link to={"/deleted"} className="btn" onClick={ () =>{ this.deleteArticle(this.props.match.params.id) } }>delete</Link> 
-                        <Link to={"/dashboard"} className="btn">back</Link>
-                    </div>
-                    
-                </div>
+            <div className="wrapper content">
+                { main }
             </div>
         )
     }
 }   
+
+ArticleDetails.propTypes = {
+    username: PropTypes.string,
+    authToken: PropTypes.string
+  }
+  
+  const mapStateToProps = state => ({
+    username: state.casa.username,
+    authToken: state.casa.authToken,
+    moveContentValue: state.casa.moveContentValue
+  })
+  
+  export default connect(mapStateToProps, null)(ArticleDetails)
