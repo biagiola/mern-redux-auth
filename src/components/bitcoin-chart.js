@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -53,15 +53,18 @@ class BitcoinChart extends Component {
 
     const value = this.props.moveContentValue ?
     "60px" :  "250px"
-    
+
     return (
       <div className="content" style={{ marginLeft: value }}>
         <h1>BitCoin Chart</h1>
-        <div className="bitcoinChart">
+        <div className="bitcoinChart" >
           <Line
+            width={600} 
+            height={200}
             data={this.state.data}
             options={{
               responsive: true,
+              maintainAspectRatio : true,
               title: { text: "Last 10 days" , display: true },
               scales: {
                 yAxes: [
