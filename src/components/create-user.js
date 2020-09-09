@@ -127,8 +127,8 @@ newUser.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  authToken: state.casa.authToken,  
-  moveContentValue: state.casa.moveContentValue
+  authToken: state.main.authToken,  
+  moveContentValue: state.main.moveContentValue
 })
 
 export default connect(mapStateToProps, null)(newUser)

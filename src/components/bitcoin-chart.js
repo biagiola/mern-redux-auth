@@ -16,12 +16,12 @@ const BitcoinChart = () => {
       .then(res => {
         console.log('res dankmemes ',res.data.Data.Data);
         res.data.Data.Data.forEach(element => {
-            empSal.push(parseInt(element.high))
+          empSal.push(parseInt(element.high))
 
-            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-            var date = new Date(element.time * 1000);
-            console.log('getDate ', date.getDate())
-            empDate.push(date.getDate() )
+          // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+          var date = new Date(element.time * 1000);
+          console.log('getDate ', date.getDate())
+          empDate.push(date.getDate() )
         });
 
         setChartData({

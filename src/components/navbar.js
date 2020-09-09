@@ -6,81 +6,84 @@ import { PropTypes } from 'prop-types'
 
 import { setAuthToken, moveContent } from '../actions'
 
+//import source from '../../backendLocal/upload/holix'
+
 class Navbar extends Component {
     
-    handleLogOut = () => {
-        this.props.setAuthToken(null)
-    }
-    
-    hangleMarginLeft = () => {
-        this.props.moveContent()
-    }
- 
-    render() {
-        const show = this.props.authToken !== null ?
-        <header>
-            <label htmlFor="check">
-                <i 
-                    id="sidebar_btn"
-                    className="fas fa-bars" 
-                    onClick={ this.hangleMarginLeft }
-                ></i>
-            </label>
-            <div className="left_area">
-                <h3>Coding <span>Snow</span></h3>
-            </div>
-            <div className="right_area">
-                <Link 
-                    to={'/'}
-                    className="logout_btn"
-                    onClick={ this.handleLogOut }
-                >Logout</Link>
-            </div>
-        </header>
-        : ''
+  handleLogOut = () => {
+    this.props.setAuthToken(null)
+  }
+  
+  hangleMarginLeft = () => {
+    this.props.moveContent()
+  }
 
-        const sidebar = this.props.authToken !== null ?
-        <div className="sidebar">
-            <div className="profile_info">
-                <img src="1.png" className="profile_image" alt="" />
-                <h4>{ this.props.username }</h4>
-            </div>
-            <Link to={'/dashboard'}><i className="fas fa-home"></i><span>Dashboard</span></Link>
-            <Link to={'/create'}><i className="fas fa-pencil-alt"></i><span>Create</span></Link>
-            <Link to={'/bitcoin'}><i className="fas fa-dollar-sign"></i><span>Bitcoin</span></Link>
-            <Link to={'/weather'}><i className="fas fa-sun"></i><span>Weather</span></Link>
-            <Link to={'/lenguage'}><i className="fas fa-info-circle"></i><span>Lenguage</span></Link>
-            <Link to={'/signup'}><i className="fas fa-sliders-h"></i><span>Sign Up</span></Link>
-        </div>  
-        : ''       
+  render() {
+    const show = this.props.authToken !== null ?
+    <header>
+      <label htmlFor="check">
+        <i 
+            id="sidebar_btn"
+            className="fas fa-bars" 
+            onClick={ this.hangleMarginLeft }
+        ></i>
+      </label>
+      <div className="left_area">
+        <h3>Coding <span>Snow</span></h3>
+      </div>
+      <div className="right_area">
+        <Link 
+            to={'/'}
+            className="logout_btn"
+            onClick={ this.handleLogOut }
+        >Logout</Link>
+      </div>
+    </header>
+    : ''
 
-        return (
-            <div>
-                <input type="checkbox" id="check"/>    
-                { show }
-                { sidebar }                        
-            </div>
-        );
-    }
+    const sidebar = this.props.authToken !== null ?
+    <div className="sidebar">
+      <div className="profile_info">
+        <img src={ source } className="profile_image" alt="" />
+        <h4>{ this.props.username }</h4>
+      </div>
+      <Link to={'/dashboard'}><i className="fas fa-home"></i><span>Dashboard</span></Link>
+      <Link to={'/create'}><i className="fas fa-pencil-alt"></i><span>Create</span></Link>
+      <Link to={'/bitcoin'}><i className="fas fa-dollar-sign"></i><span>Bitcoin</span></Link>
+      <Link to={'/weather'}><i className="fas fa-sun"></i><span>Weather</span></Link>
+      <Link to={'/lenguage'}><i className="fas fa-info-circle"></i><span>Lenguage</span></Link>
+      <Link to={'/signup'}><i className="fas fa-sliders-h"></i><span>Sign Up</span></Link>
+    </div>  
+    : ''       
+
+    return (
+      <div>
+        <input type="checkbox" id="check"/>    
+        { show }
+        { sidebar }                        
+      </div>
+    );
+  }
 }
 
 Navbar.propTypes = {
   changeShowNavbar: PropTypes.func,
   moveContent: PropTypes.func,
-  username: PropTypes.func,
+  username: PropTypes.string,
   
 }
 
 const mapStateToProps = state => ({
-  authToken: state.casa.authToken,
-  username: state.casa.username,
+  authToken: state.main.authToken,
+  username: state.main.username,
+  userImage: state.main.userImage,
 })
 
 const mapDispatchToProps = dispatch => {
-    return {
-        setAuthToken: nullToken => dispatch(setAuthToken(nullToken)),
-        moveContent: nullToken => dispatch(moveContent())
-    }
+  return {
+    setAuthToken: nullToken => dispatch(setAuthToken(nullToken)),
+    moveContent: () => dispatch(moveContent())
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

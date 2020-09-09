@@ -23,25 +23,25 @@ class EditArticle extends Component {
   componentDidMount() {
     axios.get('http://localhost:5000/articles/'+ this.props.match.params.id)
     .then(response => {
-        this.setState({
-            lenguage: response.data.lenguage,
-            title: response.data.title,
-            description: response.data.description,
-            duration: response.data.duration,
-            //date: new Date(response.data.date)
-        })   
+      this.setState({
+        lenguage: response.data.lenguage,
+        title: response.data.title,
+        description: response.data.description,
+        duration: response.data.duration,
+        //date: new Date(response.data.date)
+      })   
     })
     .catch( error => console.log(error) )
 
     axios.get('http://localhost:5000/lenguages/')
-      .then(response => {
-        if (response.data.length > 0) {
-          this.setState({
-            lenguages: response.data.map(lenguage => lenguage.lenguage),
-          })
-        }
-      })
-      .catch( error => console.log(error) )
+    .then(response => {
+      if (response.data.length > 0) {
+        this.setState({
+          lenguages: response.data.map(lenguage => lenguage.lenguage),
+        })
+      }
+    })
+    .catch( error => console.log(error) )
   }
 
   onChangeLenguage = e => {
@@ -52,7 +52,7 @@ class EditArticle extends Component {
 
   onChangeTitle = e => {
     this.setState({
-        title: e.target.value
+      title: e.target.value
     })
   }
 
@@ -98,44 +98,44 @@ class EditArticle extends Component {
 
     const main = this.props.authToken !== null ?
     <div>
-        <h3>Edit Article</h3>
-        <form onSubmit={ this.onSubmit } className="container">
-            <div className="form-group">
-                <label>Title:</label>
-                <input
-                    type="text"
-                    required
-                    className="form-control text-dark list-group-item-secondary"
-                    value={ this.state.title }
-                    onChange={ this.onChangeTitle }
-                />
-                </div>
-                <div className="form-group"> 
-                <label>Description: </label>
-                <textarea  
-                    type="text"
-                    required
-                    className="form-control text-dark list-group-item-secondary"
-                    rows="15"
-                    value={ this.state.description }
-                    onChange={ this.onChangeDescription }
-                    />
-                </div>
-                <div className="form-group">
-                <label>Date: </label>
-                <div>
-                    <DatePicker
-                    selected={ this.state.date }
-                    onChange={ this.onChangeDate }
-                    />
-                </div>
-                </div>
+      <h3>Edit Article</h3>
+      <form onSubmit={ this.onSubmit } className="container">
+        <div className="form-group">
+          <label>Title:</label>
+          <input
+              type="text"
+              required
+              className="form-control text-dark list-group-item-secondary"
+              value={ this.state.title }
+              onChange={ this.onChangeTitle }
+          />
+          </div>
+          <div className="form-group"> 
+          <label>Description: </label>
+          <textarea  
+              type="text"
+              required
+              className="form-control text-dark list-group-item-secondary"
+              rows="15"
+              value={ this.state.description }
+              onChange={ this.onChangeDescription }
+              />
+          </div>
+          <div className="form-group">
+          <label>Date: </label>
+          <div>
+            <DatePicker
+              selected={ this.state.date }
+              onChange={ this.onChangeDate }
+            />
+          </div>
+          </div>
 
-                <div className="form-group">
-                <input type="submit" value="save" className="btn" />
-                <Link to={ '/details/' + this.props.match.params.id } type="button" className="btn btn-primary bg-primary text-light">back</Link>
-            </div>
-        </form>
+          <div className="form-group">
+          <input type="submit" value="save" className="btn" />
+          <Link to={ '/details/' + this.props.match.params.id } type="button" className="btn btn-primary bg-primary text-light">back</Link>
+        </div>
+      </form>
     </div>
     :
     <div>
@@ -155,7 +155,7 @@ EditArticle.propTypes = {
   }
 
 const mapStateToProps = state => ({
-    authToken: state.casa.authToken
+    authToken: state.main.authToken
 })
 
 export default connect(mapStateToProps, null)(EditArticle)
