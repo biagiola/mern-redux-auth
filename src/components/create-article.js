@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
+
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
+
 import axios from 'axios'
 
-export default class CreateArticle extends Component {
+class CreateArticle extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,16 +21,16 @@ export default class CreateArticle extends Component {
   }
   
   componentDidMount() {
-      axios.get('http://localhost:5000/lenguages/')
-      .then( response => {
-        if ( response.data.length > 0 ) {
-          this.setState({
-            lenguages: response.data.map( lenguages => lenguages.lenguage ),
-            lenguage: response.data[0].lenguage
-          })
-        }
+    axios.get('http://localhost:5000/lenguages/')
+    .then( response => {
+      if ( response.data.length > 0 ) {
+        this.setState({
+          lenguages: response.data.map( lenguages => lenguages.lenguage ),
+          lenguage: response.data[0].lenguage
+        })
       }
-      ).catch( error => console.log(error) )
+    }
+    ).catch( error => console.log(error) )
   }
 
   onChangeLenguage = e => {
@@ -70,8 +75,12 @@ export default class CreateArticle extends Component {
   }
 
   render() {
+
+    const value = this.props.moveContentValue ?
+    "60px" :  "250px"
+
     return (
-      <div className="wrapper content">
+      <div className="wrapper content" style={{ marginLeft: value }}>
         <h3 className="">Create New Article</h3>
         <form onSubmit={ this.onSubmit } className="">
           <div className="form-group">
@@ -109,9 +118,9 @@ export default class CreateArticle extends Component {
                 return (<option
                   key={ lenguage }
                   value={ lenguage }
-                  >
+                >
                 { lenguage }
-                </option>);
+                </option>)
               })
             }
             </select>
@@ -137,3 +146,13 @@ export default class CreateArticle extends Component {
     )
   }
 }
+
+CreateArticle.propTypes = {
+  moveContentValue: PropTypes.bool,
+}
+
+const mapStateToProps = (state) => ({
+  moveContentValue: state.main.moveContentValue
+})
+
+export default  connect(mapStateToProps, null)(CreateArticle)
