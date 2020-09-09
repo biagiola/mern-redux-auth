@@ -30,7 +30,7 @@ const BitcoinChart = () => {
             {
               label: "bitcoin price $",
               data: empSal,
-              backgroundColor: ["rgba(249, 241, 0, 0.7)"],
+              backgroundColor: ["rgba(255, 135, 15, 0.7)"],
               borderWidth: 1
             }
           ]

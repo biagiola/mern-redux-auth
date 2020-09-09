@@ -17,6 +17,12 @@ export const setAuthToken = token => dispatch => {
 export const moveContent = () => dispatch => {
     dispatch({
         type: 'MOVE_CONTENT'
-    });
+    })
 }
-
+ 
+export const setUserImage = img => dispatch => {
+    dispatch({
+        type: 'USER_IMAGE',
+        payload: img
+    })
+}

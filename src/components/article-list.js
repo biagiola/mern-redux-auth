@@ -9,9 +9,9 @@ import axios from 'axios'
 // this props comes from the state, that is map in this.articleList() 
 const Article = props => (
     <div className="card">
-        <Link 
-            to={ '/details/' + props.article._id } 
-        >{ props.article.title } - { props.article.lenguage }</Link>
+      <Link 
+        to={ '/details/' + props.article._id } 
+      >{ props.article.title } - { props.article.date ? props.article.date.slice(0,10) : props.article.date }</Link>
     </div>
 )
 
@@ -81,6 +81,8 @@ class ArticlesList extends Component {
   }
   
   render() {
+
+    console.log('moveContentValue',this.props.moveContentValue)
 
     const value = this.props.moveContentValue ?
     "60px" :  "250px"

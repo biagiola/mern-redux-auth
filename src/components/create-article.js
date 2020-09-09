@@ -74,39 +74,20 @@ export default class CreateArticle extends Component {
       <div className="wrapper content">
         <h3 className="">Create New Article</h3>
         <form onSubmit={ this.onSubmit } className="">
-          <div className="">
-            <label>Lenguage: </label>
-            <select
-                ref="userInput"
-                required
-                className="form-control"                        
-                value={ this.state.lenguage }
-                onChange={ this.onChangeLenguage }
-            >{
-                this.state.lenguages.map( function(lenguage) {
-                    return (<option
-                            key={ lenguage }
-                            value={ lenguage }
-                        >
-                        { lenguage }
-                    </option>);
-                })
-            }
-            </select>
-          </div>
-          <div className="form-group text-dark">
-            <label>Title:</label>
+          <div className="form-group">
             <input
+              placeholder='Title'
               type="text"
               required
-              className="form-control"
+              className="form__input"
               value={ this.state.title }
               onChange={ this.onChangeTitle }
             />
           </div>
+
           <div className="form-group">
-            <label>Description:</label>
             <textarea
+              placeholder='Description'
               type="text"
               required
               className="form-control"
@@ -115,8 +96,28 @@ export default class CreateArticle extends Component {
               onChange={ this.onChangeDescription }
             />
           </div>
+
           <div className="form-group">
-            <label>Date:</label>
+            <select
+              ref="userInput"
+              required
+              className="form__input"                        
+              value={ this.state.lenguage }
+              onChange={ this.onChangeLenguage }
+              >{
+                this.state.lenguages.map( function(lenguage) {
+                return (<option
+                  key={ lenguage }
+                  value={ lenguage }
+                  >
+                { lenguage }
+                </option>);
+              })
+            }
+            </select>
+          </div>
+
+          <div className="form-group">
             <div>
               <DatePicker
                 selected={ this.state.date }
@@ -124,6 +125,7 @@ export default class CreateArticle extends Component {
               />
             </div>
           </div>
+
           <div className="form-group">
             <input 
               type="submit" 

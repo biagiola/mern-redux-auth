@@ -28,9 +28,7 @@ class Navbar extends Component {
             onClick={ this.hangleMarginLeft }
         ></i>
       </label>
-      <div className="left_area">
-        <h3>Coding <span>Snow</span></h3>
-      </div>
+      
       <div className="right_area">
         <Link 
             to={'/'}
@@ -44,7 +42,7 @@ class Navbar extends Component {
     const sidebar = this.props.authToken !== null ?
     <div className="sidebar">
       <div className="profile_info">
-        <img src={ source } className="profile_image" alt="" />
+        <img src='./1.png' className="profile_image" alt="" />
         <h4>{ this.props.username }</h4>
       </div>
       <Link to={'/dashboard'}><i className="fas fa-home"></i><span>Dashboard</span></Link>
