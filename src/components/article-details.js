@@ -83,9 +83,11 @@ class ArticleDetails extends Component {
       <Redirect to="/" />
     </div>
 
+    const value = this.props.moveContentValue ?
+    "60px" :  "250px"
 
     return (
-      <div className="wrapper content">
+      <div className="wrapper content" style={{ marginLeft: value }}>
         { main }
       </div>
     )
@@ -94,7 +96,8 @@ class ArticleDetails extends Component {
 
 ArticleDetails.propTypes = {
   username: PropTypes.string,
-  authToken: PropTypes.string
+  authToken: PropTypes.string,
+  moveContentValue: PropTypes.bool,
 }
   
 const mapStateToProps = state => ({
