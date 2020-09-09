@@ -2,11 +2,12 @@ const initialState = {
     username: '',
     authToken: null,
     gone: false,
-    moveContentValue: false
+    moveContentValue: false,
+    userImage: ''
 }
 
 export default function(state = initialState, action) {
-    switch(action.type){
+    switch(action.type) {
         case 'SET_AUTH_TOKEN':
         console.log('SET_AUTH_TOKEN')
             return {
@@ -31,6 +32,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 moveContentValue: !state.moveContentValue
+            }
+
+        case 'USER_IMAGE':
+            return {
+                ...state,
+                userImage: action.payload
             }
         default:
         return state;
