@@ -6,15 +6,6 @@ import { PropTypes } from 'prop-types'
 
 import axios from 'axios'
 
-// this props comes from the state, that is map in this.articleList() 
-const Article = props => (
-    <div className="card">
-      <Link 
-        to={ '/details/' + props.article._id } 
-      >{ props.article.title } - { props.article.date ? props.article.date.slice(0,10) : props.article.date }</Link>
-    </div>
-)
-
 class ArticlesList extends Component {
   constructor(props) {
     super(props)
@@ -24,8 +15,10 @@ class ArticlesList extends Component {
       lenguages: [],
       lenguage: '',
     }
+    
   }
   
+
   componentDidMount() {
     // get the lenguages before the render
     axios.get('http://localhost:5000/lenguages/')
@@ -67,11 +60,15 @@ class ArticlesList extends Component {
     return this.state.articles.length 
     ? this.state.articles.map
       (currentarticle => {
-      return <Article 
-            article={ currentarticle } 
-            deleteArticle={ this.deleteArticle } 
-            key={ currentarticle._id } 
-          />
+      return <Link to={ '/details/' + currentarticle._id } key={ currentarticle._id }>
+                <div 
+                  className="card"
+                  article={ currentarticle } 
+                  deleteArticle={ this.deleteArticle } 
+                  key={ currentarticle._id }
+                  >{ currentarticle.title }
+                </div>
+              </Link>
         }
       )
     :<Link 
@@ -81,18 +78,18 @@ class ArticlesList extends Component {
   }
   
   render() {
+    
+    const { moveContentValue, authToken } = this.props
 
-    console.log('moveContentValue',this.props.moveContentValue)
-
-    const value = this.props.moveContentValue ?
+    const margin = moveContentValue ?
     "60px" :  "250px"
 
-    const main = this.props.authToken !== null ?
+    const main = authToken !== null ?
     <div>
-      <h3 className="text-dark">Welcome</h3>
+      <h3 className="">Articles</h3>
       {
         this.state.articles.length ? 
-          <div className="list-group">{ this.articleList() }</div> 
+          <div className="">{ this.articleList() }</div> 
           : 
           <div></div>
       }
@@ -101,7 +98,7 @@ class ArticlesList extends Component {
     ''
 
     return (
-      <div className="wrapper content" style={{ marginLeft: value }}>
+      <div className="wrapper content" style={{ marginLeft: margin }}>
         { main }
       </div>
     )
@@ -109,7 +106,8 @@ class ArticlesList extends Component {
 }
 
 ArticlesList.propTypes = {
-  authToken: PropTypes.string
+  authToken: PropTypes.string,
+  moveContentValue: PropTypes.bool,
 }
 
 const mapStateToProps = state => ({
