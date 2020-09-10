@@ -19,7 +19,9 @@ class Navbar extends Component {
   }
 
   render() {
-    const show = this.props.authToken !== null ?
+    const { authToken, username } = this.props
+    
+    const show = authToken !== null ?
     <header>
       <label htmlFor="check">
         <i 
@@ -39,11 +41,11 @@ class Navbar extends Component {
     </header>
     : ''
 
-    const sidebar = this.props.authToken !== null ?
+    const sidebar = authToken !== null ?
     <div className="sidebar">
       <div className="profile_info">
         <img src='./1.png' className="profile_image" alt="" />
-        <h4>{ this.props.username }</h4>
+        <h4>{ username }</h4>
       </div>
       <Link to={'/dashboard'}><i className="fas fa-home"></i><span>Dashboard</span></Link>
       <Link to={'/create'}><i className="fas fa-pencil-alt"></i><span>Create</span></Link>

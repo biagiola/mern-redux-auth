@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-export default class CreateUsers extends Component {
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
+
+class CreateUsers extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -47,8 +50,12 @@ export default class CreateUsers extends Component {
   }   
 
   render() {
+    const { moveContentValue } = this.props
+    const value = moveContentValue ?
+    "60px" :  "250px"
+
     return (
-      <div className="wrapper content">
+      <div className="wrapper content" style={{ marginLeft: margin }}>
         <h3 className="text-dark container mt-2">Add new lenguage</h3>
         <form onSubmit={ this.onSubmit } className="container text-dark">
           <div className='form-group'>
@@ -82,3 +89,12 @@ export default class CreateUsers extends Component {
   }
 }
 
+CreateUsers.propTypes = {
+  moveContentValue: PropTypes.bool,
+}
+
+const mapStateToProps = (state) => ({
+  moveContentValue: state.main.moveContentValue
+})
+
+export default connect(mapStateToProps, null)(CreateUsers)

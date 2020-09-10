@@ -23,11 +23,15 @@ class DeleteArticle extends Component {
   render(){
     const empty = console.log('render', this.state.articles)
     if(!this.state.articles.length) {
-        console.log('isArticlesEmpty')
+      console.log('isArticlesEmpty')
     }
 
+    const { moveContentValue } = this.props
+    const value = moveContentValue ?
+    "60px" :  "250px"
+
     return ( 
-      <div className="wrapper content">
+      <div className="wrapper content" style={{ marginLeft: margin }}>
         <div>Article was deleted</div><br/>
         <Link 
           to={'/dashboard'} 
@@ -42,13 +46,12 @@ class DeleteArticle extends Component {
 }
  
 DeleteArticle.propTypes = {
-  articlesGone: PropTypes.func
+  articlesGone: PropTypes.func,
+  moveContentValue: PropTypes.bool,
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-      //articlesGone: () => dispatch(articlesGone())
-  }
-}
+const mapStateToProps = (state) => ({
+  moveContentValue: state.main.moveContentValue
+})
 
-export default connect(null, mapDispatchToProps)(DeleteArticle)
+export default connect(null, null)(DeleteArticle)

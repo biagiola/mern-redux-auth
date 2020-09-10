@@ -50,8 +50,8 @@ class BitcoinChart extends Component {
   }
 
   render(){
-
-    const value = this.props.moveContentValue ?
+    const { moveContentValue } = this.props
+    const value = moveContentValue ?
     "60px" :  "250px"
 
     return (

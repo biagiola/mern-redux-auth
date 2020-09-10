@@ -1,79 +1,86 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
 
-class SignUp extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            email: '',
-            password: '',
-            location: '*',
-            registerMessage: ''
-        }
-        this.onSubmit = this.onSubmit.bind(this)
-        this.changeEmail = this.changeEmail.bind(this)
-        this.changePassword = this.changePassword.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+class NewUser extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      name: '',
+      email: '',
+      password: ''
     }
+  }
 
-    changeEmail(e) {
-        this.setState({
-            email: e.target.value
-        });
+  changeName = e => {
+    this.setState({
+      name: e.target.value
+    })
+  }
+  changeEmail = e => {
+    this.setState({
+      email: e.target.value
+    })
+  }
+  changePassword = e => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+  onSubmit = e => {
+    e.preventDefault()
+
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
     }
+    axios.post('http://localhost:5000/auth/register', newUser)
+    .then( res => console.log( res.data ))
 
-    changePassword(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
+    window.location = '/'
+  }
 
-    onSubmit(e) {
-        e.preventDefault();
+  render() {
+    const { moveContentValue } = this.props
+    const margin = moveContentValue ?
+    "60px" :  "250px"
 
-        const newUser = {
-            email: this.state.email,
-            password: this.state.password
-        }
-
-        axios.post('http://localhost:5000/auth/login', newUser)
-            .then( res => {
-                //alert('you are in, '+res.data.name)
-                this.props.changeShowNavbar()
-                console.log('this.props.showNavbar sigup.js',this.props.showNavbar)
-                this.props.history.push('/dashboard')
-            })
-            .catch( error => {
-                console.log(error)
-                //alert(error.response.data )}
-            )
-    }
-
-    render() {
-        return (
-            <div className="wrapper container mt-5"> 
-                <form onSubmit={ this.onSubmit } className="form-group">
-                    <input 
-                        id="femail"
-                        type="text"
-                        className="form-control"
-                        placeholder="enter your email..."
-                        value={ this.state.email } 
-                        onChange={ this.changeEmail } />
-                        <br/>
-                    <input 
-                        id="fpwd"
-                        type="text" 
-                        className="form-control"
-                        placeholder="enter your password..."
-                        value={ this.state.password }
-                        onChange={ this.changePassword } />
-                        <br/>
-                    <button className="btn btn-primary">Login</button>
-                </form>
-            </div>
-        )
-    }
+    return (
+      <div className="content" style={{ marginLeft: margin }}>
+        <form onSubmit={ this.onSubmit }>
+          <input 
+            placeholder="Enter your name"
+            type="text"
+            value={ this.state.name } 
+            onChange={ this.changeName } />
+            <br/>
+          <input 
+            placeholder="Enter your email"
+            type="text"
+            value={ this.state.email } 
+            onChange={ this.changeEmail } />
+            <br/>
+          <input
+            placeholder="Enter your password" 
+            type="text" 
+            value={ this.state.password }
+            onChange={ this.changePassword } />
+            <br/>
+          <button>Send</button>
+        </form>
+      </div>
+    )
+  }
 }
 
-export default SignUp;
+NewUser.propTypes = {
+  moveContentValue: PropTypes.bool,
+}
+
+const mapStateToProps = (state) => ({
+  moveContentValue: state.main.moveContentValue
+})
+
+export default connect(mapStateToProps, null)(NewUser)

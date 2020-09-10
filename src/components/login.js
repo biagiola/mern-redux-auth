@@ -16,8 +16,9 @@ class SignUp extends Component {
       registerMessage: ''
     }
   }
-
+  
   changeEmail = e => {
+    console.log(window.scrollY)
     this.setState({
       email: e.target.value
     });
@@ -54,7 +55,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="wrapper container">
-        <form onSubmit={this.onSubmit} className="form-group">
+        <form onSubmit={this.onSubmit} className="form__login">
           <input
             id="femail"
             type="text"

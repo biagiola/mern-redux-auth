@@ -13,11 +13,13 @@ class Sidebar extends Component {
     }
  
     render() {
-      const show = this.props.authToken === null ?
+      const { authToken, username, userImage } = this.props
+
+      const show = authToken === null ?
       <div className="sidebar">
         <div className="profile_info">
-            <img src={ this.props.userImage } className="profile_image" alt="" />
-            <h4>{ this.props.username }</h4>
+            <img src={ userImage } className="profile_image" alt="" />
+            <h4>{ username }</h4>
         </div>
         <Link to={'/dashboard'}><i className="fas fa-desktop"></i><span>Dashboard</span></Link>
         <Link to={'/create'}><i className="fas fa-cogs"></i><span>Create</span></Link>

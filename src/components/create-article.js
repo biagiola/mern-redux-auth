@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import axios from 'axios'
 
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 
-import axios from 'axios'
 
 class CreateArticle extends Component {
   constructor(props) {
@@ -75,8 +75,8 @@ class CreateArticle extends Component {
   }
 
   render() {
-
-    const value = this.props.moveContentValue ?
+    const { moveContentValue } = this.props
+    const value = moveContentValue ?
     "60px" :  "250px"
 
     return (
@@ -86,9 +86,8 @@ class CreateArticle extends Component {
           <div className="form-group">
             <input
               placeholder='Title'
-              type="text"
+              type='text'
               required
-              className="form__input"
               value={ this.state.title }
               onChange={ this.onChangeTitle }
             />
@@ -96,21 +95,19 @@ class CreateArticle extends Component {
 
           <div className="form-group">
             <textarea
-              placeholder='Description'
-              type="text"
+              placeholder='Write your article...'
+              type='text'
               required
-              className="form-control"
               rows="8"
               value={ this.state.description }
               onChange={ this.onChangeDescription }
             />
           </div>
 
-          <div className="form-group">
+          <div className='form-group'>
             <select
-              ref="userInput"
+              ref='userInput'
               required
-              className="form__input"                        
               value={ this.state.lenguage }
               onChange={ this.onChangeLenguage }
               >{
