@@ -7,8 +7,6 @@ import axios from 'axios'
 function ArticlesList() {
   const [articles, setArticles] = useState([])
   const authToken = useSelector(store => store.main.authToken)
-
-  
   
   // This execute the first render and everytime authToken changes
   useEffect( () => {
@@ -22,10 +20,10 @@ function ArticlesList() {
       setArticles(res.data)
     })
     .catch( error => console.log(error) )
-    //.catch( error => this.props.history.push('/') )
   }, [authToken])
 
-  const taggedArticles = articles.length ? 
+  
+  const taggedArticles = (articles.length && authToken !== null) ? 
   articles.map
   (currentarticle => {
     return (
@@ -41,17 +39,19 @@ function ArticlesList() {
   : 
   <Link to={'/create'} className="btn">Add an Article</Link>
 
-  const moveContentValue = useSelector( store => store.main.moveContentValue)
-  const margin = moveContentValue ?
-  "60px" :  "250px" 
-
+  // Render according if the user is authenticated
   const show = authToken === null ? 
   <Redirect to={'/'}></Redirect> 
   :
   <div>
     <h2>Articles</h2> 
-    {taggedArticles}
+    {articles.length ? taggedArticles : <div></div>}
   </div>
+
+  // Set the margin according to the sidebar status
+  const moveContentValue = useSelector( store => store.main.moveContentValue)
+  const margin = moveContentValue ?
+  "60px" :  "250px"
 
   return (
     <div className="wrapper content" style={{ marginLeft: margin }}>
