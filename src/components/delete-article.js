@@ -27,7 +27,7 @@ class DeleteArticle extends Component {
     }
 
     const { moveContentValue } = this.props
-    const value = moveContentValue ?
+    const margin = moveContentValue ?
     "60px" :  "250px"
 
     return ( 

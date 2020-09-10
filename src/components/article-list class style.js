@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+
+import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types'
+
 import axios from 'axios'
 
-export default function ArticlesList() {
-  /* constructor(props) {
+class ArticlesList extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       username: '',
@@ -12,9 +15,11 @@ export default function ArticlesList() {
       lenguages: [],
       lenguage: '',
     }
-  } */
+    
+  }
+  
 
-  /* componentDidMount() {
+  componentDidMount() {
     // get the lenguages before the render
     axios.get('http://localhost:5000/lenguages/')
     .then( res => {
@@ -26,8 +31,9 @@ export default function ArticlesList() {
       }
     })
 
-    // get the articles before the render
     const token = 'bearer ' + this.props.authToken;
+
+    // get the articles before the render
     axios.get('http://localhost:5000/articles', {
       headers: {
         'Authorization': token
@@ -41,9 +47,16 @@ export default function ArticlesList() {
     this.setState({
       username: this.props.username
     })
-  } */
+  }
 
-  /* articleList() {
+  onChangeLenguage = (e) => {
+    console.log('onChangeLenguage')
+    this.setState({
+      lenguage: e.target.value
+    })
+  }
+
+  articleList() {
     return this.state.articles.length 
     ? this.state.articles.map
       (currentarticle => {
@@ -62,9 +75,16 @@ export default function ArticlesList() {
       to={ '/create' } 
       className=""
     >Add a new one</Link>
-  } */
+  }
   
-    /* const main = authToken !== null ?
+  render() {
+    
+    const { moveContentValue, authToken } = this.props
+
+    const margin = moveContentValue ?
+    "60px" :  "250px"
+
+    const main = authToken !== null ?
     <div>
       <h3 className="">Articles</h3>
       {
@@ -75,51 +95,24 @@ export default function ArticlesList() {
       }
     </div>
     :
-    '' */
+    ''
 
-  const [articles, setArticles] = useState([])
-  const authToken = useSelector( store => store.main.authToken)
-  
-  useEffect( () => {
-    const token = 'bearer ' + authToken;  
-    axios.get('http://localhost:5000/articles', {
-      headers: {
-        'Authorization': token
-      }
-    })
-    .then( res => {
-      setArticles(res.data)
-    })
-    .catch( error => console.log(error) )
-    //.catch( error => this.props.history.push('/') )
-  }, [authToken])
-
-  console.log('articles', articles)
-
-  const taggedArticles = articles.length ? 
-  articles.map
-    (currentarticle => {
-      return (
-        <Link to={ '/details/' + currentarticle._id } key={ currentarticle._id }>
-          <div 
-            className="card"
-            article={ currentarticle } 
-            key={ currentarticle._id }
-            >{ currentarticle.title }
-          </div>
-        </Link>)
-    })
-    : 
-  <Link to={'/create'} class="btn">Add an Article</Link>
-
-  const moveContentValue = useSelector( store => store.main.moveContentValue)
-  const margin = moveContentValue ?
-  "60px" :  "250px" 
-
-  return (
-    <div className="wrapper content" style={{ marginLeft: margin }}>
-      <h2>Articles</h2> 
-      {taggedArticles}
-    </div>
-  )
+    return (
+      <div className="wrapper content" style={{ marginLeft: margin }}>
+        { main }
+      </div>
+    )
+  }
 }
+
+ArticlesList.propTypes = {
+  authToken: PropTypes.string,
+  moveContentValue: PropTypes.bool,
+}
+
+const mapStateToProps = state => ({
+  authToken: state.main.authToken,
+  moveContentValue: state.main.moveContentValue
+})
+
+export default connect(mapStateToProps, null)(ArticlesList)
