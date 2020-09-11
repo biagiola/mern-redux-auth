@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { useSelector } from 'react-redux'
 import DatePicker from 'react-datepicker'
@@ -23,10 +22,7 @@ function CreateArticle(props) {
         }
       ).catch( error => console.log(error))
 
-      return () => {
-        
-      }
-
+      return () => {}
     }, 
     [lenguages]
   )
@@ -37,7 +33,7 @@ function CreateArticle(props) {
     const article = {
       lenguage: lenguage,
       title: title,
-      description: 'blahblahba',
+      description: description,
       date: date
     }
 
@@ -52,10 +48,7 @@ function CreateArticle(props) {
   const margin = moveContentValue ?
   "60px" :  "250px"
 
-  console.log('render', lenguages)
-
   return (
-    
     <div className="wrapper content" style={{ marginLeft: margin }}>
       <h3 className="">Create New Article</h3>
       <form onSubmit={ onSubmit } className="">
