@@ -7,17 +7,16 @@ import axios from 'axios'
 function ArticleDetails(props) {
   const authToken = useSelector(store => store.main.authToken)
   const [title, setTitle] = useState('')
-  const [ description, setDescription ] = useState('')
-  const [ date, setDate ] = useState()
-  const [ lenguage, setLenguage ] = useState()
+  const [description, setDescription] = useState('')
+  const [date, setDate] = useState()
+  const [lenguage, setLenguage] = useState()
 
   useEffect( () => {
     axios.get('http://localhost:5000/articles/' + props.match.params.id)
     .then(response => {
-      console.log('useEffect response', response)
       setTitle(response.data.title)
       setDescription(response.data.description)
-      setDate(new Date(response.data.date))
+      setDate(response.data.date)
       setLenguage(response.data.lenguage) 
     })
     .catch((error) => console.log(error))
@@ -42,7 +41,8 @@ function ArticleDetails(props) {
     <div className="container" style={{ 'padding': '0px 0px 0px', 'background' : '#d6d8db'}}>
       { description }
       <div>{ lenguage }</div>
-      <small style={{ 'padding': '50px 0px 0px' }}>Written at: { date.toString().substr(0,10) }</small>
+      {console.log('date ',date)}
+      <small style={{ 'padding': '50px 0px 0px' }}>Written at: { date !== undefined ? date.toString().substr(0,10) : '' }</small>
     </div>
 
     <div style={{ 'marginTop': '2rem'}}>
