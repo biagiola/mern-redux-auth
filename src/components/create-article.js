@@ -11,7 +11,7 @@ function CreateArticle(props) {
   const [lenguage, setLenguage] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date())
 
   useEffect( () => {
       axios.get('http://localhost:5000/lenguages/')
@@ -22,9 +22,9 @@ function CreateArticle(props) {
         }
       ).catch( error => console.log(error))
 
-      return () => {}
+      return () => null
     }, 
-    [lenguages]
+    lenguages
   )
   
   const onSubmit = e => {
