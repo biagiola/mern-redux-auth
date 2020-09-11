@@ -7,25 +7,42 @@ import axios from 'axios'
 
 function CreateArticle(props) {
   const lenguageRef = useRef('')
+  const authToken = useSelector( store => store.main.authToken )
   const [lenguages, setLenguages] = useState([])
   const [lenguage, setLenguage] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [date, setDate] = useState(new Date())
-
+  
   useEffect( () => {
-      axios.get('http://localhost:5000/lenguages/')
+      const abortController = new AbortController()
+      const signal = abortController.signal
+    
+      axios.get('http://localhost:5000/lenguages/', {signal: signal})
       .then( response => {
           if ( response.data.length > 0 ) {
             setLenguages(response.data.map( lenguages => lenguages.lenguage ))
           }
         }
       ).catch( error => console.log(error))
-
-      return () => null
+      
+      return function cleanup(){
+        abortController.abort()
+      }
     }, 
-    lenguages
+    [authToken]
   )
+
+  /*useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });*/
   
   const onSubmit = e => {
     e.preventDefault()
@@ -67,10 +84,9 @@ function CreateArticle(props) {
             placeholder='Write your article...'
             type='text'
             required
-            rows="8"
+            rows="5"
             value={ description }
             onChange={ e => setDescription(e.target.value) }
-            
           />
         </div>
 
@@ -80,7 +96,6 @@ function CreateArticle(props) {
             required
             value={ lenguage }
             onChange={ e => setLenguage(e.target.value) }>
-            {console.log('select',lenguages)}
             {
               lenguages.map( lenguage => <option key={ lenguage } value={ lenguage }>{ lenguage }</option> )
             }
