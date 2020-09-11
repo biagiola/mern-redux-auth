@@ -1,106 +1,90 @@
-import React, { Component } from 'react'
-
-import { connect } from 'react-redux'
-import { PropTypes } from 'prop-types'
-
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Line } from 'react-chartjs-2'
 import axios from 'axios'
 
-class BitcoinChart extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: {}
-    }
-  }
+function BitcoinChart() {
+  const authToken = useSelector( store => store.main.authToken )
 
-  componentDidMount() {
-    let price = []
-    let empDate = []
+  const [chartData, setChartData] = useState({});
 
-    axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=10")
-    .then(res => {
-      console.log('res dankmemes ',res.data.Data.Data);
-      res.data.Data.Data.forEach(element => {
-        // get the price
-        price.push(parseInt(element.high))
+  const chart = () => {
+    let empSal = [];
+    let empAge = [];
+    axios
+      .get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=10")
+      .then(res => {
+        res.data.Data.Data.map( element => {
+          empSal.push(parseInt(element.high));
 
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-        var date = new Date(element.time * 1000);
-        console.log('getDate ', date.getDate())
-        empDate.push(date.getDate() )
-      });
-
-      this.setState({
-        data:{
-          labels: empDate,
+          let date = new Date(element.time * 1000)
+          empAge.push(parseInt(date))
+        })
+        
+        setChartData({
+          labels: empAge,
           datasets: [
             {
-              label: "bitcoin price $",
-              data: price,
-              backgroundColor: ["rgba(255, 135, 15, 0.7)"],
-              borderWidth: 1
+              label: "level of thiccness",
+              data: empSal,
+              backgroundColor: ["rgba(75, 192, 192, 0.6)"],
+              borderWidth: 4
             }
-        ]}
+          ]
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
+    console.log(empSal, empAge);
+  };
 
-  render(){
-    const { moveContentValue } = this.props
-    const value = moveContentValue ?
-    "60px" :  "250px"
+  useEffect(() => {
+    chart();
+  }, []);
+  
+  const moveContentValue = useSelector( store => store.main.moveContentValue)
+  const margin = moveContentValue ?
+  "60px" :  "250px"
 
-    return (
-      <div className="content" style={{ marginLeft: value }}>
-        <h1>BitCoin Chart</h1>
-        <div className="bitcoinChart" >
-          <Line
-            width={600} 
-            height={200}
-            data={this.state.data}
-            options={{
-              responsive: true,
-              maintainAspectRatio : true,
-              title: { text: "Last 10 days" , display: true },
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      autoSkip: true,
-                      maxTicksLimit: 15,
-                      beginAtZero: false
-                    },
-                    gridLines: {
-                      display: true
-                    }
+  return (
+    <div className="content" style={{ marginLeft: margin }}>
+      <h1>BitCoin Chart</h1>
+      <div className="bitcoinChart" >
+        <Line
+          width={600} 
+          height={200}
+          data={chartData}
+          options={{
+            responsive: true,
+            maintainAspectRatio : true,
+            title: { text: "Last 10 days" , display: true },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 15,
+                    beginAtZero: false
+                  },
+                  gridLines: {
+                    display: true
                   }
-                ],
-                xAxes: [
-                  {
-                    gridLines: {
-                      display: false
-                    }
+                }
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false
                   }
-                ]
-              }
-            }}
-          />
-        </div>
+                }
+              ]
+            }
+          }}
+        />
       </div>
-    );
-  }
+    </div>
+  )
 }
 
-BitcoinChart.propTypes = {
-  moveContentValue: PropTypes.bool,
-}
-
-const mapStateToProps = (state) => ({
-  moveContentValue: state.main.moveContentValue
-})
-
-export default connect(mapStateToProps, null)(BitcoinChart);
+export default BitcoinChart
