@@ -10,17 +10,29 @@ function ArticlesList() {
   
   // This execute the first render and everytime authToken changes
   useEffect( () => {
-    const token = 'bearer ' + authToken;  
-    axios.get('http://localhost:5000/articles', {
-      headers: {
-        'Authorization': token
+    const abortController = new AbortController()
+    const signal = abortController.signal
+
+      const token = 'bearer ' + authToken;  
+      axios.get('http://localhost:5000/articles', 
+        { 
+          headers: {
+            'Authorization': token
+          }
+        },
+        { signal: signal }
+      )
+      .then( res => {
+        setArticles(res.data)
+      })
+      .catch( error => console.log(error) )
+
+      return function cleanup() {
+        abortController.abort()
       }
-    })
-    .then( res => {
-      setArticles(res.data)
-    })
-    .catch( error => console.log(error) )
-  }, [authToken])
+    }, 
+    [authToken]
+  )
 
   
   const taggedArticles = (articles.length && authToken !== null) ? 
@@ -36,8 +48,7 @@ function ArticlesList() {
         </div>
       </Link>)
   })
-  : 
-  <Link to={'/create'} className="btn">Add an Article</Link>
+  : ''
 
   // Render according if the user is authenticated
   const show = authToken === null ? 
@@ -45,7 +56,10 @@ function ArticlesList() {
   :
   <div>
     <h2>Articles</h2> 
-    {articles.length ? taggedArticles : <div></div>}
+    {articles.length 
+      ? taggedArticles 
+      : <Link to={'/create'} className="btn">Add an Article</Link>
+    }
   </div>
 
   // Set the margin according to the sidebar status
