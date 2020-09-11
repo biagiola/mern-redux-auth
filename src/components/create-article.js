@@ -22,6 +22,7 @@ function CreateArticle(props) {
       .then( response => {
           if ( response.data.length > 0 ) {
             setLenguages(response.data.map( lenguages => lenguages.lenguage ))
+            setLenguage(response.data[0])
           }
         }
       ).catch( error => console.log(error))
@@ -32,17 +33,6 @@ function CreateArticle(props) {
     }, 
     [authToken]
   )
-
-  /*useEffect(() => {
-    function handleStatusChange(status) {
-      setIsOnline(status.isOnline);
-    }
-    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
-    };
-  });*/
   
   const onSubmit = e => {
     e.preventDefault()
@@ -53,6 +43,8 @@ function CreateArticle(props) {
       description: description,
       date: date
     }
+
+    console.log(article)
 
     axios.post('http://localhost:5000/articles/add', article)
     .then( res => console.log( 'respuesta ',res.data ) )
@@ -67,7 +59,7 @@ function CreateArticle(props) {
 
   return (
     <div className="wrapper content" style={{ marginLeft: margin }}>
-      <h3 className="">Create New Article</h3>
+      <h3>Create New Article</h3>
       <form onSubmit={ onSubmit } className="">
         <div className="form-group">
           <input
